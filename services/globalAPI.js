@@ -8,15 +8,15 @@ export const signUpAPI = async (name, email, password) => {
       email,
       password,
     });
-    console.log(response);
 
     return response;
   } catch (error) {
     console.error(error);
+    return error;
   }
 };
 
-export const loginAPI = async (name, email, password) => {
+export const loginAPI = async (email, password) => {
   try {
     const response = await axios.post(`${API_URL}/api/v1/auth/login`, {
       email,
@@ -26,5 +26,6 @@ export const loginAPI = async (name, email, password) => {
     return response;
   } catch (error) {
     console.error(error);
+    return error.response;
   }
 };

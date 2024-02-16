@@ -1,16 +1,33 @@
 "use client";
 import LoadingBtn from "@/components/Buttons/LoadingBtn";
 import PageTitle from "@/components/pageComponents/PageTitle";
+import { GlobalContext } from "@/services/globalContext";
 import Link from "next/link";
-import { useState } from "react";
+import { useContext, useState } from "react";
 
 const SignUp = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const handleSignUp = (e) => {
+  const { signUp } = useContext(GlobalContext);
+
+  const handleSignUp = async (e) => {
     e.preventDefault();
+    setError("");
+
+    setLoading(true);
+    const response = await signUp(name, email, password);
+
+    if (response?.status === 201) {
+      console.log("signed up!");
+      setLoading(false);
+    } else {
+      setError(response.response.data.message);
+      setLoading(false);
+    }
   };
 
   return (
@@ -18,6 +35,7 @@ const SignUp = () => {
       <div className="custom-container">
         <div className="flex flex-col items-center">
           <PageTitle title="Sign up" />
+          {!!error && <p className="mt-4 text-red-600">{error}</p>}
           <div className="my-10">
             <form onSubmit={handleSignUp}>
               <div className="flex flex-col gap-10">

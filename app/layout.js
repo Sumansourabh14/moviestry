@@ -1,6 +1,7 @@
 import { Inter, League_Spartan } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/pageComponents/Navbar";
+import { GlobalContextProvider } from "@/services/globalContext";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const leagueSpartan = League_Spartan({
@@ -15,13 +16,15 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body
-        className={`${inter.variable} ${leagueSpartan.variable} font-inter`}
-      >
-        <Navbar />
-        {children}
-      </body>
-    </html>
+    <GlobalContextProvider>
+      <html lang="en">
+        <body
+          className={`${inter.variable} ${leagueSpartan.variable} font-inter`}
+        >
+          <Navbar />
+          {children}
+        </body>
+      </html>
+    </GlobalContextProvider>
   );
 }

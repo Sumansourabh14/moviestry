@@ -1,15 +1,34 @@
 "use client";
 import LoadingBtn from "@/components/Buttons/LoadingBtn";
 import PageTitle from "@/components/pageComponents/PageTitle";
+import { GlobalContext } from "@/services/globalContext";
 import Link from "next/link";
-import { useState } from "react";
+import { useContext, useState } from "react";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const handleLogin = (e) => {
+  const { login } = useContext(GlobalContext);
+
+  const handleLogin = async (e) => {
     e.preventDefault();
+    setError("");
+
+    setLoading(true);
+    const response = await login(email, password);
+
+    console.log(response);
+
+    if (response?.status === 200) {
+      console.log("logged in!");
+      setLoading(false);
+    } else {
+      setError(response.data.message);
+      setLoading(false);
+    }
   };
 
   return (
@@ -17,6 +36,7 @@ const Login = () => {
       <div className="custom-container">
         <div className="flex flex-col items-center">
           <PageTitle title="Login" />
+          {!!error && <p className="mt-4 text-red-600">{error}</p>}
           <div className="my-10">
             <form onSubmit={handleLogin}>
               <div className="flex flex-col gap-10">

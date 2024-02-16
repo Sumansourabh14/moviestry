@@ -2,7 +2,7 @@ import LinkBtn from "../Links/LinkBtn";
 
 const Hero = () => {
   return (
-    <div className="bg-black px-6 py-40">
+    <div className="bg-black px-6 py-28">
       <div className="custom-container">
         <div className="text-white text-center flex flex-col gap-10">
           <h1 className="font-leagueSpartan sm:text-3xl md:text-5xl lg:text-7xl xl:text-9xl font-semibold">

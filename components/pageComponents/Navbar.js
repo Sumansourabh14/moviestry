@@ -1,5 +1,4 @@
 import Link from "next/link";
-import React from "react";
 
 const Navbar = () => {
   return (
@@ -12,7 +11,10 @@ const Navbar = () => {
               <Link href={`/signup`}>Sign up</Link>
             </li>
             <li>
-              <Link href={`/login`} className="bg-black text-white px-6 py-2">
+              <Link
+                href={`/login`}
+                className="bg-black text-white px-6 py-2 rounded"
+              >
                 Login
               </Link>
             </li>

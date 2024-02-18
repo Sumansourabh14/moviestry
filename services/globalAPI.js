@@ -29,3 +29,18 @@ export const loginAPI = async (email, password) => {
     return error.response;
   }
 };
+
+export const getSelfAPI = async (token) => {
+  try {
+    const response = await axios.get(`${API_URL}/api/v1/user/self`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    return response;
+  } catch (error) {
+    console.error(error);
+    return error.response;
+  }
+};

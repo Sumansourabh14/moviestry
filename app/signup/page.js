@@ -3,7 +3,8 @@ import LoadingBtn from "@/components/Buttons/LoadingBtn";
 import PageTitle from "@/components/pageComponents/PageTitle";
 import { GlobalContext } from "@/services/globalContext";
 import Link from "next/link";
-import { useContext, useState } from "react";
+import { useRouter } from "next/navigation";
+import { useContext, useEffect, useState } from "react";
 
 const SignUp = () => {
   const [name, setName] = useState("");
@@ -12,7 +13,8 @@ const SignUp = () => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const { signUp } = useContext(GlobalContext);
+  const { signUp, isLoggedIn } = useContext(GlobalContext);
+  const router = useRouter();
 
   const handleSignUp = async (e) => {
     e.preventDefault();
@@ -29,6 +31,12 @@ const SignUp = () => {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      router.push("/profile");
+    }
+  }, [isLoggedIn]);
 
   return (
     <div className="px-6 py-10">

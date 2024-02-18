@@ -3,7 +3,8 @@ import LoadingBtn from "@/components/Buttons/LoadingBtn";
 import PageTitle from "@/components/pageComponents/PageTitle";
 import { GlobalContext } from "@/services/globalContext";
 import Link from "next/link";
-import { useContext, useState } from "react";
+import { useRouter } from "next/navigation";
+import { useContext, useEffect, useState } from "react";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -11,7 +12,8 @@ const Login = () => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const { login } = useContext(GlobalContext);
+  const { login, isLoggedIn } = useContext(GlobalContext);
+  const router = useRouter();
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -25,11 +27,20 @@ const Login = () => {
     if (response?.status === 200) {
       console.log("logged in!");
       setLoading(false);
+      router.push("/profile");
     } else {
       setError(response.data.message);
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    console.log(isLoggedIn);
+    if (isLoggedIn) {
+      router.push("/profile");
+    }
+    console.log(isLoggedIn);
+  }, [isLoggedIn]);
 
   return (
     <div className="px-6 py-10">

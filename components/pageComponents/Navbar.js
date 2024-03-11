@@ -25,6 +25,9 @@ const Navbar = () => {
           ) : (
             <ul className="flex gap-6 items-center">
               <li>
+                <Link href={`/browse`}>Browse</Link>
+              </li>
+              <li>
                 <Link href={`/signup`}>Sign up</Link>
               </li>
               <li>

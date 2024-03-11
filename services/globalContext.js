@@ -44,7 +44,7 @@ export const GlobalContextProvider = ({ children }) => {
   const getSelf = async () => {
     try {
       const response = await getSelfAPI(token);
-      console.log(response);
+      // console.log(response);
 
       if (response?.data?.user) {
         setUser(response.data.user);

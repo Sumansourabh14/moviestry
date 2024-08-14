@@ -33,10 +33,6 @@ const NowPlaying = () => {
             {movies.map((movie) => (
               <CarouselItem key={movie.id} className="basis-1/7 relative">
                 <Link href={`/title/${movie.id}`}>
-                  <MdMoreVert
-                    className="absolute right-2 top-2 cursor-pointer"
-                    size={24}
-                  />
                   <Card>
                     <CardHeader style={{ padding: 0 }}>
                       <Image

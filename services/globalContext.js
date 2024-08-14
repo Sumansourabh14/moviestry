@@ -6,6 +6,7 @@ export const GlobalContext = createContext();
 
 export const GlobalContextProvider = ({ children }) => {
   const [error, setError] = useState({ error: false, status: "" });
+  const [loading, setLoading] = useState(true);
 
   const getNowPlaying = async () => {
     try {
@@ -21,19 +22,22 @@ export const GlobalContextProvider = ({ children }) => {
 
   const getMovieDetails = async (id) => {
     try {
+      setLoading(true);
       const res = await movieDetailsApi(id);
-      console.log(res);
+      setLoading(false);
+      return res;
     } catch (error) {
       console.log(error);
       setError({
         error: error.response.data.status_message,
         status: error.response.status,
       });
+      setLoading(false);
     }
   };
 
   return (
-    <GlobalContext.Provider value={{ getNowPlaying, getMovieDetails }}>
+    <GlobalContext.Provider value={{ loading, getNowPlaying, getMovieDetails }}>
       {children}
     </GlobalContext.Provider>
   );

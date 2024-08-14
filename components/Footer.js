@@ -42,6 +42,10 @@ const Footer = () => {
           </div>
         </div>
       </div>
+      <p className="text-sm text-gray-400 text-center pt-8">
+        &copy; <span id="year">{new Date().getFullYear()}</span> Moviestry. All
+        rights reserved.
+      </p>
     </footer>
   );
 };

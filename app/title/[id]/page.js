@@ -8,34 +8,33 @@ import { Separator } from "@/components/ui/separator";
 import { Progress } from "@/components/ui/progress";
 
 const MovieDetails = ({ params }) => {
-  // const [data, setData] = useState(null);
-  // const { getMovieDetails, loading } = useContext(GlobalContext);
+  const [data, setData] = useState(null);
+  const { getMovieDetails, loading } = useContext(GlobalContext);
 
-  // const movieId = params.id;
-  // console.log(params);
+  const movieId = params.id;
 
-  // useEffect(() => {
-  //   let mounted = true;
+  useEffect(() => {
+    let mounted = true;
 
-  //   const fetchData = async () => {
-  //     const res = await getMovieDetails(movieId);
+    const fetchData = async () => {
+      const res = await getMovieDetails(movieId);
 
-  //     if (mounted) {
-  //       console.log(res.data);
-  //       setData(res.data);
-  //     }
-  //   };
+      if (mounted) {
+        console.log(res.data);
+        setData(res.data);
+      }
+    };
 
-  //   fetchData();
+    fetchData();
 
-  //   return () => {
-  //     mounted = false;
-  //   };
-  // }, [movieId]);
+    return () => {
+      mounted = false;
+    };
+  }, [movieId]);
 
-  // if (loading) {
-  //   return <p>loading...</p>;
-  // }
+  useEffect(() => {
+    document.title = `${data?.original_title} | Moviestry`;
+  }, [data]);
 
   const convertMinutesToHours = (minutes) => {
     const hours = Math.floor(minutes / 60); // Get the whole number of hours
@@ -43,20 +42,24 @@ const MovieDetails = ({ params }) => {
     return `${hours}h ${remainingMinutes}min`;
   };
 
+  if (loading) {
+    return <p>loading...</p>;
+  }
+
   return (
     !!data && (
-      <div>
+      <section className="mb-24">
+        <div className="absolute w-full h-[300px] sm:h-[350px] md:h-[400px] lg:h-[450px] xl:h-[500px] 2xl:h-[550px] bg-gradient-to-t from-white"></div>
         <div
           style={{
             backgroundImage: `url(${process.env.NEXT_PUBLIC_TMDB_IMAGE_BASE_URL}/original/${data.backdrop_path})`,
-            paddingTop: "200px",
-            paddingBottom: "200px",
             backgroundPosition: "center",
             backgroundSize: "cover",
             backgroundRepeat: "no-repeat",
           }}
+          className="w-full h-[300px] sm:h-[350px] md:h-[400px] lg:h-[450px] xl:h-[500px] 2xl:h-[550px]"
         ></div>
-        <section className="max-w-[1400px] m-auto px-6 pt-8">
+        <section className="max-w-[1400px] mx-auto px-6">
           <section className="flex gap-8 ">
             <section className="relative w-full sm:w-64 sm:h-96 h-auto">
               <Image
@@ -68,7 +71,7 @@ const MovieDetails = ({ params }) => {
             </section>
             <section className="flex flex-col gap-4">
               {!!data?.tagline && (
-                <p className="max-w-[900px] text-gray-600 font-light">
+                <p className="max-w-[900px] text-gray-800 font-light">
                   {data.tagline}
                 </p>
               )}
@@ -138,7 +141,7 @@ const MovieDetails = ({ params }) => {
             </section>
           </section>
         </section>
-      </div>
+      </section>
     )
   );
 };

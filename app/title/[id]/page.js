@@ -8,29 +8,29 @@ import { Separator } from "@/components/ui/separator";
 import { Progress } from "@/components/ui/progress";
 
 const MovieDetails = ({ params }) => {
-  const [data, setData] = useState(null);
-  const { getMovieDetails, loading } = useContext(GlobalContext);
+  // const [data, setData] = useState(null);
+  // const { getMovieDetails, loading } = useContext(GlobalContext);
 
-  const movieId = params.id;
+  // const movieId = params.id;
 
-  useEffect(() => {
-    let mounted = true;
+  // useEffect(() => {
+  //   let mounted = true;
 
-    const fetchData = async () => {
-      const res = await getMovieDetails(movieId);
+  //   const fetchData = async () => {
+  //     const res = await getMovieDetails(movieId);
 
-      if (mounted) {
-        console.log(res.data);
-        setData(res.data);
-      }
-    };
+  //     if (mounted) {
+  //       console.log(res.data);
+  //       setData(res.data);
+  //     }
+  //   };
 
-    fetchData();
+  //   fetchData();
 
-    return () => {
-      mounted = false;
-    };
-  }, [movieId]);
+  //   return () => {
+  //     mounted = false;
+  //   };
+  // }, [movieId]);
 
   useEffect(() => {
     document.title = `${data?.original_title} | Moviestry`;
@@ -42,9 +42,9 @@ const MovieDetails = ({ params }) => {
     return `${hours}h ${remainingMinutes}min`;
   };
 
-  if (loading) {
-    return <p>loading...</p>;
-  }
+  // if (loading) {
+  //   return <p>loading...</p>;
+  // }
 
   return (
     !!data && (

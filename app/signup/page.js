@@ -5,14 +5,14 @@ import SignUpForm from "@/components/forms/SignUpForm";
 import { GlobalContext } from "@/services/globalContext";
 import postersData from "@/utils/sampleContent/moviePosters.json";
 import { useRouter } from "next/navigation";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 const SignUp = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const { loading, signUp, error } = useContext(GlobalContext);
+  const { loading, signUp, error, user } = useContext(GlobalContext);
   const router = useRouter();
 
   const handleNameChange = (e) => {
@@ -40,6 +40,12 @@ const SignUp = () => {
       return;
     }
   };
+
+  useEffect(() => {
+    if (!!user) {
+      router.push("/");
+    }
+  }, [user]);
 
   return (
     <>

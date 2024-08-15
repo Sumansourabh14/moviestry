@@ -20,7 +20,6 @@ const MovieDetails = ({ params }) => {
       const res = await getMovieDetails(movieId);
 
       if (mounted) {
-        console.log(res.data);
         setData(res.data);
       }
     };

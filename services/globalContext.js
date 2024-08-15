@@ -1,17 +1,25 @@
 "use client";
-import { createContext, useState } from "react";
+import { createContext, use, useEffect, useState } from "react";
 import {
+  isAuthenticatedApi,
+  loginApi,
   movieDetailsApi,
   nowPlayingMoviesApi,
   searchMoviesApi,
   signUpApi,
 } from "./globalAPIs";
+import { useCookies } from "react-cookie";
+import { useRouter } from "next/navigation";
 
 export const GlobalContext = createContext();
 
 export const GlobalContextProvider = ({ children }) => {
   const [error, setError] = useState({ error: false, status: "", message: "" });
   const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState(null);
+  const [cookies, setCookie, removeCookie] = useCookies();
+  const [moviestryToken, setMoviestryToken] = useState(cookies.moviestry_token);
+  const router = useRouter();
 
   const signUp = async (name, email, password) => {
     try {
@@ -25,7 +33,6 @@ export const GlobalContextProvider = ({ children }) => {
       setLoading(false);
       return res;
     } catch (error) {
-      console.log(error);
       setError({
         error: true,
         status: error.response.status,
@@ -35,11 +42,52 @@ export const GlobalContextProvider = ({ children }) => {
     }
   };
 
+  const login = async (email, password) => {
+    try {
+      setError({
+        error: false,
+        status: "",
+        message: "",
+      });
+      setLoading(true);
+      const res = await loginApi(email, password);
+      setMoviestryToken(res.data.token);
+      setCookie("moviestry_token", res.data.token);
+      setLoading(false);
+      return res;
+    } catch (error) {
+      setError({
+        error: true,
+        status: error.response.status,
+        message: error.response.data.message,
+      });
+      setLoading(false);
+    }
+  };
+
+  const isUserLoggedIn = async () => {
+    try {
+      setError({
+        error: false,
+        status: "",
+        message: "",
+      });
+      setLoading(true);
+      const res = await isAuthenticatedApi(moviestryToken);
+      setUser(res.data.user);
+      // setMoviestryToken(res.data.token);
+      // setCookie("moviestry_token", res.data.token);
+      setLoading(false);
+      return res;
+    } catch (error) {
+      setLoading(false);
+    }
+  };
+
   const getNowPlaying = async () => {
     try {
       const res = await nowPlayingMoviesApi();
     } catch (error) {
-      console.log(error);
       setError({
         error: error.response.data.status_message,
         status: error.response.status,
@@ -54,7 +102,6 @@ export const GlobalContextProvider = ({ children }) => {
       setLoading(false);
       return res;
     } catch (error) {
-      console.log(error);
       setError({
         error: error.response.data.status_message,
         status: error.response.status,
@@ -70,7 +117,6 @@ export const GlobalContextProvider = ({ children }) => {
       setLoading(false);
       return res;
     } catch (error) {
-      console.log(error);
       setError({
         error: error.response.data.status_message,
         status: error.response.status,
@@ -79,15 +125,49 @@ export const GlobalContextProvider = ({ children }) => {
     }
   };
 
+  const logout = async () => {
+    try {
+      setError({
+        error: false,
+        status: "",
+        message: "",
+      });
+      setLoading(true);
+
+      setMoviestryToken(null);
+      removeCookie("moviestry_token");
+      setUser(null);
+
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+      return;
+    }
+  };
+
+  useEffect(() => {
+    isUserLoggedIn();
+  }, [cookies]);
+
+  useEffect(() => {
+    if (!user) {
+      router.push("/login");
+    }
+  }, [user]);
+
   return (
     <GlobalContext.Provider
       value={{
         loading,
         error,
         signUp,
+        login,
+        logout,
+        moviestryToken,
         getNowPlaying,
         getMovieDetails,
         searchMovies,
+        user,
       }}
     >
       {children}

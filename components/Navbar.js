@@ -1,6 +1,12 @@
+"use client";
+import { GlobalContext } from "@/services/globalContext";
 import Link from "next/link";
+import { useContext } from "react";
+import { Button } from "./ui/button";
 
 const Navbar = () => {
+  const { user, logout } = useContext(GlobalContext);
+
   return (
     <nav className="bg-black w-full max-w-[1200px] mx-auto fixed top-2 left-1/2 transform -translate-x-1/2 z-50 rounded-lg shadow-lg px-4 sm:px-6">
       <div className="flex items-center justify-between py-4 px-4">
@@ -32,20 +38,31 @@ const Navbar = () => {
           </div>
         </div>
         <div className="hidden sm:block sm:ml-6">
-          <div className="flex space-x-4">
-            <Link
-              href="/login"
-              className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-            >
-              Login
-            </Link>
-            <Link
-              href="/signup"
-              className="text-gray-800 bg-white hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-            >
-              Sign Up
-            </Link>
-          </div>
+          {!!user ? (
+            <div className="flex space-x-4">
+              <Button
+                onClick={logout}
+                className="bg-red-300 text-black hover:bg-red-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+              >
+                Logout
+              </Button>
+            </div>
+          ) : (
+            <div className="flex space-x-4">
+              <Link
+                href="/login"
+                className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+              >
+                Login
+              </Link>
+              <Link
+                href="/signup"
+                className="text-gray-800 bg-white hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+              >
+                Sign Up
+              </Link>
+            </div>
+          )}
         </div>
       </div>
     </nav>

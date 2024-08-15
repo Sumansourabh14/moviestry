@@ -42,7 +42,11 @@ const Login = () => {
                 handleSubmit={handleLogin}
               />
             </section>
-            <AlreadyAccount destination={`/signup`} title="Sign up" />
+            <AlreadyAccount
+              text="Don't have an account?"
+              destination={`/signup`}
+              title="Sign up"
+            />
           </section>
         </section>
       </section>

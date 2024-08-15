@@ -1,11 +1,17 @@
 "use client";
 import AlreadyAccount from "@/components/forms/AlreadyAccount";
+import FormError from "@/components/forms/FormError";
 import LoginForm from "@/components/forms/LoginForm";
-import { useState } from "react";
+import { GlobalContext } from "@/services/globalContext";
+import { useRouter } from "next/navigation";
+import { useContext, useEffect, useState } from "react";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const { loading, login, error, user } = useContext(GlobalContext);
+  const router = useRouter();
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -15,11 +21,25 @@ const Login = () => {
     setPassword(e.target.value);
   };
 
-  const handleLogin = (e) => {
-    e.preventDefault();
+  const handleLogin = async (e) => {
+    try {
+      e.preventDefault();
 
-    console.log(email, password);
+      const res = await login(email, password);
+
+      if (res.status === 200) {
+        router.push("/");
+      }
+    } catch (error) {
+      return;
+    }
   };
+
+  useEffect(() => {
+    if (!!user) {
+      router.push("/");
+    }
+  }, [user]);
 
   return (
     <>
@@ -30,9 +50,10 @@ const Login = () => {
             <h1 className="text-2xl sm:text-3xl md:text-5xl font-bold">
               Login
             </h1>
-            <p className="text-gray-500">
+            <p className="text-gray-500 text-center">
               Log in to your account and start managing your movies and TV
             </p>
+            {!!error.error && <FormError message={error.message} />}
             <section>
               <LoginForm
                 email={email}

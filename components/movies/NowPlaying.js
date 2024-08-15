@@ -1,7 +1,8 @@
 "use client";
-import React from "react";
 import data from "@/utils/sampleContent/nowPlaying.json";
 import Image from "next/image";
+import Link from "next/link";
+import { Card, CardContent, CardHeader } from "../ui/card";
 import {
   Carousel,
   CarouselContent,
@@ -9,14 +10,10 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "../ui/carousel";
-import { Card, CardContent, CardHeader } from "../ui/card";
 import { Progress } from "../ui/progress";
-import { MdMoreVert } from "react-icons/md";
-import Link from "next/link";
 
 const NowPlaying = () => {
   const movies = data.results;
-  console.log(movies);
 
   return (
     <section style={{ maxWidth: "1400px" }}>

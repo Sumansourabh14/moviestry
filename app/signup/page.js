@@ -1,13 +1,19 @@
 "use client";
 import AlreadyAccount from "@/components/forms/AlreadyAccount";
+import FormError from "@/components/forms/FormError";
 import SignUpForm from "@/components/forms/SignUpForm";
-import Link from "next/link";
-import { useEffect, useState } from "react";
+import { GlobalContext } from "@/services/globalContext";
+import postersData from "@/utils/sampleContent/moviePosters.json";
+import { useRouter } from "next/navigation";
+import { useContext, useState } from "react";
 
 const SignUp = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const { loading, signUp, error } = useContext(GlobalContext);
+  const router = useRouter();
 
   const handleNameChange = (e) => {
     setName(e.target.value);
@@ -21,10 +27,18 @@ const SignUp = () => {
     setPassword(e.target.value);
   };
 
-  const handleSignUp = (e) => {
-    e.preventDefault();
+  const handleSignUp = async (e) => {
+    try {
+      e.preventDefault();
 
-    console.log(name, email, password);
+      const res = await signUp(name, email, password);
+
+      if (res.status === 201) {
+        router.push("/login");
+      }
+    } catch (error) {
+      return;
+    }
   };
 
   return (
@@ -36,9 +50,10 @@ const SignUp = () => {
             <h1 className="text-2xl sm:text-3xl md:text-5xl font-bold">
               Sign Up
             </h1>
-            <p className="text-gray-500">
+            <p className="text-gray-500 text-center">
               Join Moviestry to manage your movies and TV
             </p>
+            {!!error.error && <FormError message={error.message} />}
             <section>
               <SignUpForm
                 name={name}

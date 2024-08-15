@@ -1,5 +1,17 @@
 import axios from "axios";
 
+export const signUpApi = async (name, email, password) => {
+  const res = await axios.post(
+    `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/api/v1/register`,
+    {
+      name,
+      email,
+      password,
+    }
+  );
+  return res;
+};
+
 export const nowPlayingMoviesApi = async () => {
   const res = await axios.get(
     `${process.env.NEXT_PUBLIC_TMDB_API_URL}/3/movie/now_playingfosdfnsdof`,

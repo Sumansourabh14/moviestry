@@ -1,16 +1,39 @@
 "use client";
-import { createContext, useEffect, useState } from "react";
+import { createContext, useState } from "react";
 import {
   movieDetailsApi,
   nowPlayingMoviesApi,
   searchMoviesApi,
+  signUpApi,
 } from "./globalAPIs";
 
 export const GlobalContext = createContext();
 
 export const GlobalContextProvider = ({ children }) => {
-  const [error, setError] = useState({ error: false, status: "" });
+  const [error, setError] = useState({ error: false, status: "", message: "" });
   const [loading, setLoading] = useState(true);
+
+  const signUp = async (name, email, password) => {
+    try {
+      setError({
+        error: false,
+        status: "",
+        message: "",
+      });
+      setLoading(true);
+      const res = await signUpApi(name, email, password);
+      setLoading(false);
+      return res;
+    } catch (error) {
+      console.log(error);
+      setError({
+        error: true,
+        status: error.response.status,
+        message: error.response.data.message,
+      });
+      setLoading(false);
+    }
+  };
 
   const getNowPlaying = async () => {
     try {
@@ -58,7 +81,14 @@ export const GlobalContextProvider = ({ children }) => {
 
   return (
     <GlobalContext.Provider
-      value={{ loading, getNowPlaying, getMovieDetails, searchMovies }}
+      value={{
+        loading,
+        error,
+        signUp,
+        getNowPlaying,
+        getMovieDetails,
+        searchMovies,
+      }}
     >
       {children}
     </GlobalContext.Provider>

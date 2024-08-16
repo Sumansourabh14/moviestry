@@ -6,10 +6,14 @@ import { GlobalContext } from "@/services/globalContext";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { Progress } from "@/components/ui/progress";
+import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
 
 const MovieDetails = ({ params }) => {
   const [data, setData] = useState(null);
-  const { getMovieDetails, loading } = useContext(GlobalContext);
+  const { getMovieDetails, loading, addToWatchlist, user } =
+    useContext(GlobalContext);
+  const router = useRouter();
 
   const movieId = params.id;
 
@@ -34,6 +38,14 @@ const MovieDetails = ({ params }) => {
   useEffect(() => {
     document.title = `${data?.original_title} | Moviestry`;
   }, [data]);
+
+  const handleAddToWatchlist = async (id) => {
+    if (!user) {
+      router.push("/login");
+      return;
+    }
+    await addToWatchlist(id);
+  };
 
   const convertMinutesToHours = (minutes) => {
     const hours = Math.floor(minutes / 60); // Get the whole number of hours
@@ -137,6 +149,11 @@ const MovieDetails = ({ params }) => {
                 }
                 <Progress value={data.vote_average * 10} />
               </section>
+              <div>
+                <Button onClick={() => handleAddToWatchlist(data.id)}>
+                  Add to Watchlist
+                </Button>
+              </div>
             </section>
           </section>
         </section>

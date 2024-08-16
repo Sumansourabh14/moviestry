@@ -1,6 +1,7 @@
 "use client";
 import { createContext, use, useEffect, useState } from "react";
 import {
+  addToWatchlistApi,
   isAuthenticatedApi,
   loginApi,
   movieDetailsApi,
@@ -110,6 +111,29 @@ export const GlobalContextProvider = ({ children }) => {
     }
   };
 
+  const addToWatchlist = async (id) => {
+    try {
+      setLoading(true);
+      setError({
+        error: false,
+        status: "",
+        message: "",
+      });
+      const res = await addToWatchlistApi(id, moviestryToken);
+      setLoading(false);
+      return res;
+    } catch (error) {
+      console.error(error);
+      setError({
+        error: true,
+        status: error.response.status,
+        message: error.response.data.message,
+      });
+      setLoading(false);
+      return;
+    }
+  };
+
   const searchMovies = async (query) => {
     try {
       setLoading(true);
@@ -168,6 +192,7 @@ export const GlobalContextProvider = ({ children }) => {
         getMovieDetails,
         searchMovies,
         user,
+        addToWatchlist,
       }}
     >
       {children}

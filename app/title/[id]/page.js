@@ -13,6 +13,7 @@ import { useToast } from "@/components/ui/use-toast";
 const MovieDetails = ({ params }) => {
   const [data, setData] = useState(null);
   const [isWatchlisted, setIsWatchlisted] = useState(false);
+  const [isWatched, setIsWatched] = useState(false);
   const {
     getMovieDetails,
     loading,
@@ -20,6 +21,9 @@ const MovieDetails = ({ params }) => {
     removeFromWatchlist,
     user,
     watchlistMedia,
+    addToWatched,
+    removeFromWatched,
+    watchedMedia,
   } = useContext(GlobalContext);
   const router = useRouter();
   const { toast } = useToast();
@@ -58,6 +62,16 @@ const MovieDetails = ({ params }) => {
     }
   }, [watchlistMedia]);
 
+  useEffect(() => {
+    if (watchedMedia.length > 0) {
+      const array = watchedMedia.map((media) => media.mediaId);
+
+      if (array.includes(data.id)) {
+        setIsWatched(true);
+      }
+    }
+  }, [watchedMedia]);
+
   const handleWatchlistMedia = async (id) => {
     if (!user) {
       router.push("/login");
@@ -90,6 +104,43 @@ const MovieDetails = ({ params }) => {
         setIsWatchlisted(true);
         toast({
           description: "Successfully added to your watchlist",
+        });
+      }
+    }
+  };
+
+  const handleWatchedMedia = async (id) => {
+    if (!user) {
+      router.push("/login");
+      return;
+    }
+
+    if (isWatched) {
+      const res = await removeFromWatched(data.id);
+      if (res.data.success) {
+        setIsWatched(false);
+        toast({
+          description: "Successfully removed from your watched list",
+        });
+      }
+    } else {
+      const res = await addToWatched(
+        id,
+        data.adult,
+        data.backdrop_path,
+        data.genre_ids,
+        data.id,
+        data.original_language,
+        data.original_title,
+        data.overview,
+        data.poster_path,
+        data.release_date,
+        data.title
+      );
+      if (res.data.success) {
+        setIsWatched(true);
+        toast({
+          description: "Successfully added to your watched list",
         });
       }
     }
@@ -183,9 +234,12 @@ const MovieDetails = ({ params }) => {
                 }
                 <Progress value={data.vote_average * 10} />
               </section>
-              <div>
+              <div className="flex gap-2">
                 <Button onClick={() => handleWatchlistMedia(data.id)}>
                   {isWatchlisted ? "Remove from Watchlist" : "Add to Watchlist"}
+                </Button>
+                <Button onClick={() => handleWatchedMedia(data.id)}>
+                  {isWatched ? "Not Watched" : "Already Watched"}
                 </Button>
               </div>
             </section>

@@ -1,8 +1,8 @@
 "use client";
 import { GlobalContext } from "@/services/globalContext";
+import { CircleCheckBig, List, LogOut } from "lucide-react";
 import Link from "next/link";
 import { useContext } from "react";
-import { Button } from "./ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -11,7 +11,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
-import { List, LogOut } from "lucide-react";
 
 const Navbar = () => {
   const { user, logout } = useContext(GlobalContext);
@@ -53,7 +52,7 @@ const Navbar = () => {
                 <DropdownMenuTrigger className="bg-white text-black hover:bg-slate-700 hover:text-white px-6 py-2 rounded-md text-sm font-medium">
                   {user.name}
                 </DropdownMenuTrigger>
-                <DropdownMenuContent>
+                <DropdownMenuContent className="w-[200px]">
                   <DropdownMenuLabel>My Account</DropdownMenuLabel>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem>
@@ -63,6 +62,15 @@ const Navbar = () => {
                     >
                       <List className="mr-2 h-4 w-4" />
                       <span>Watchlist</span>
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem>
+                    <Link
+                      href={`/user/watched`}
+                      className="flex gap-1 items-center"
+                    >
+                      <CircleCheckBig className="mr-2 h-4 w-4" />
+                      <span>Already Watched</span>
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem>Profile</DropdownMenuItem>

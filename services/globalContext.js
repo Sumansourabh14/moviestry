@@ -1,12 +1,15 @@
 "use client";
 import { createContext, use, useEffect, useState } from "react";
 import {
+  addToWatchlistApi,
   isAuthenticatedApi,
   loginApi,
   movieDetailsApi,
   nowPlayingMoviesApi,
+  removeFromWatchlistApi,
   searchMoviesApi,
   signUpApi,
+  userWatchlistApi,
 } from "./globalAPIs";
 import { useCookies } from "react-cookie";
 import { useRouter } from "next/navigation";
@@ -19,6 +22,7 @@ export const GlobalContextProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [cookies, setCookie, removeCookie] = useCookies();
   const [moviestryToken, setMoviestryToken] = useState(cookies.moviestry_token);
+  const [watchlistMedia, setWatchlistMedia] = useState([]);
   const router = useRouter();
 
   const signUp = async (name, email, password) => {
@@ -110,6 +114,101 @@ export const GlobalContextProvider = ({ children }) => {
     }
   };
 
+  const addToWatchlist = async (
+    id,
+    adult,
+    backdrop_path,
+    genre_ids,
+    mediaId,
+    original_language,
+    original_title,
+    overview,
+    poster_path,
+    release_date,
+    title
+  ) => {
+    try {
+      setLoading(true);
+      setError({
+        error: false,
+        status: "",
+        message: "",
+      });
+      const res = await addToWatchlistApi(
+        id,
+        adult,
+        backdrop_path,
+        genre_ids,
+        mediaId,
+        original_language,
+        original_title,
+        overview,
+        poster_path,
+        release_date,
+        title,
+        moviestryToken
+      );
+      setLoading(false);
+      return res;
+    } catch (error) {
+      console.error(error);
+      setError({
+        error: true,
+        status: error.response.status,
+        message: error.response.data.message,
+      });
+      setLoading(false);
+      return;
+    }
+  };
+
+  const removeFromWatchlist = async (id) => {
+    try {
+      setLoading(true);
+      setError({
+        error: false,
+        status: "",
+        message: "",
+      });
+      const res = await removeFromWatchlistApi(id, moviestryToken);
+      setLoading(false);
+      return res;
+    } catch (error) {
+      console.error(error);
+      setError({
+        error: true,
+        status: error.response.status,
+        message: error.response.data.message,
+      });
+      setLoading(false);
+      return;
+    }
+  };
+
+  const getUserWatchlist = async () => {
+    try {
+      setLoading(true);
+      setError({
+        error: false,
+        status: "",
+        message: "",
+      });
+      const res = await userWatchlistApi(moviestryToken);
+      setWatchlistMedia(res.data.watchlist);
+      setLoading(false);
+      return res;
+    } catch (error) {
+      console.error(error);
+      setError({
+        error: true,
+        status: error.response.status,
+        message: error.response.data.message,
+      });
+      setLoading(false);
+      return;
+    }
+  };
+
   const searchMovies = async (query) => {
     try {
       setLoading(true);
@@ -150,8 +249,12 @@ export const GlobalContextProvider = ({ children }) => {
   }, [cookies]);
 
   useEffect(() => {
-    if (!user) {
-      router.push("/login");
+    // if (!user) {
+    //   router.push("/login");
+    // }
+
+    if (!!user) {
+      getUserWatchlist();
     }
   }, [user]);
 
@@ -168,6 +271,10 @@ export const GlobalContextProvider = ({ children }) => {
         getMovieDetails,
         searchMovies,
         user,
+        addToWatchlist,
+        getUserWatchlist,
+        watchlistMedia,
+        removeFromWatchlist,
       }}
     >
       {children}

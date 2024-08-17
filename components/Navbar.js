@@ -3,6 +3,15 @@ import { GlobalContext } from "@/services/globalContext";
 import Link from "next/link";
 import { useContext } from "react";
 import { Button } from "./ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "./ui/dropdown-menu";
+import { List, LogOut } from "lucide-react";
 
 const Navbar = () => {
   const { user, logout } = useContext(GlobalContext);
@@ -40,12 +49,33 @@ const Navbar = () => {
         <div className="hidden sm:block sm:ml-6">
           {!!user ? (
             <div className="flex space-x-4">
-              <Button
-                onClick={logout}
-                className="bg-red-300 text-black hover:bg-red-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-              >
-                Logout
-              </Button>
+              <DropdownMenu>
+                <DropdownMenuTrigger className="bg-white text-black hover:bg-slate-700 hover:text-white px-6 py-2 rounded-md text-sm font-medium">
+                  {user.name}
+                </DropdownMenuTrigger>
+                <DropdownMenuContent>
+                  <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem>
+                    <Link
+                      href={`/user/watchlist`}
+                      className="flex gap-1 items-center"
+                    >
+                      <List className="mr-2 h-4 w-4" />
+                      <span>Watchlist</span>
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem>Profile</DropdownMenuItem>
+                  <DropdownMenuItem>Team</DropdownMenuItem>
+                  <DropdownMenuItem
+                    onClick={logout}
+                    className="text-red-500 hover:bg-black px-3 py-2 rounded-md text-sm font-medium cursor-pointer"
+                  >
+                    <LogOut className="mr-2 h-4 w-4" />
+                    <span>Logout</span>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
             </div>
           ) : (
             <div className="flex space-x-4">

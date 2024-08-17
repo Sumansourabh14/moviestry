@@ -3,6 +3,7 @@ import MediaCard from "@/components/cards/MediaCard";
 import PageTitle from "@/components/text/PageTitle";
 import { Skeleton } from "@/components/ui/skeleton";
 import { GlobalContext } from "@/services/globalContext";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useContext, useEffect, useState } from "react";
 
@@ -51,14 +52,16 @@ const Watchlist = () => {
                 </div>
               </div>
             ) : watchList.length > 0 ? (
-              <section>
+              <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8">
                 {watchList.map((media) => (
-                  <MediaCard
-                    key={media._id}
-                    posterPath={media.poster_path}
-                    title={media.title}
-                    releaseDate={media.release_date}
-                  />
+                  <Link href={`/title/${media.mediaId}`} key={media._id}>
+                    <MediaCard
+                      key={media._id}
+                      posterPath={media.poster_path}
+                      title={media.title}
+                      releaseDate={media.release_date}
+                    />
+                  </Link>
                 ))}
               </section>
             ) : (

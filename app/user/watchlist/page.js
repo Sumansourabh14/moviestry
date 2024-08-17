@@ -1,7 +1,7 @@
 "use client";
 import MediaCard from "@/components/cards/MediaCard";
+import MovieCardSkeleton from "@/components/skeletons/MovieCardSkeleton";
 import PageTitle from "@/components/text/PageTitle";
-import { Skeleton } from "@/components/ui/skeleton";
 import { GlobalContext } from "@/services/globalContext";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -44,13 +44,7 @@ const Watchlist = () => {
           <section className="flex flex-col items-center gap-8">
             <PageTitle title="My Watchlist" />
             {loading ? (
-              <div className="flex flex-col space-y-3">
-                <Skeleton className="bg-gray-300 h-[280px] w-[220px] rounded-xl" />
-                <div className="space-y-2">
-                  <Skeleton className="bg-gray-300 h-4 w-[220px]" />
-                  <Skeleton className="bg-gray-300 h-4 w-[200px]" />
-                </div>
-              </div>
+              <MovieCardSkeleton />
             ) : watchList.length > 0 ? (
               <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8">
                 {watchList.map((media) => (

@@ -6,9 +6,11 @@ import { GlobalContext } from "@/services/globalContext";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { Progress } from "@/components/ui/progress";
-import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
+import { Bookmark, CircleCheckBig } from "lucide-react";
+import ActionButton from "@/components/buttons/ActionButton";
+import MovieDetailsSkeleton from "@/components/skeletons/MovieDetailsSkeleton";
 
 const MovieDetails = ({ params }) => {
   const [data, setData] = useState(null);
@@ -153,7 +155,7 @@ const MovieDetails = ({ params }) => {
   };
 
   if (loading) {
-    return <p>loading...</p>;
+    return <MovieDetailsSkeleton />;
   }
 
   return (
@@ -235,12 +237,18 @@ const MovieDetails = ({ params }) => {
                 <Progress value={data.vote_average * 10} />
               </section>
               <div className="flex gap-2">
-                <Button onClick={() => handleWatchlistMedia(data.id)}>
-                  {isWatchlisted ? "Remove from Watchlist" : "Add to Watchlist"}
-                </Button>
-                <Button onClick={() => handleWatchedMedia(data.id)}>
-                  {isWatched ? "Not Watched" : "Already Watched"}
-                </Button>
+                <ActionButton
+                  handleClick={() => handleWatchlistMedia(data.id)}
+                  title={
+                    isWatchlisted ? "Remove from Watchlist" : "Want to Watch"
+                  }
+                  icon={<Bookmark className="mr-2" />}
+                />
+                <ActionButton
+                  handleClick={() => handleWatchedMedia(data.id)}
+                  title={isWatched ? "Watched" : "Already Watched"}
+                  icon={<CircleCheckBig className="mr-2" />}
+                />
               </div>
             </section>
           </section>

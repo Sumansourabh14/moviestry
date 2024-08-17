@@ -73,8 +73,6 @@ const Navbar = () => {
                       <span>Already Watched</span>
                     </Link>
                   </DropdownMenuItem>
-                  <DropdownMenuItem>Profile</DropdownMenuItem>
-                  <DropdownMenuItem>Team</DropdownMenuItem>
                   <DropdownMenuItem
                     onClick={logout}
                     className="text-red-500 hover:bg-black px-3 py-2 rounded-md text-sm font-medium cursor-pointer"

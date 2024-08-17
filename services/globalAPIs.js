@@ -48,6 +48,18 @@ export const addToWatchlistApi = async (id, token) => {
   return res;
 };
 
+export const userWatchlistApi = async (token) => {
+  const res = await axios.get(
+    `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/api/v1/media/watchlist`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+  return res;
+};
+
 export const nowPlayingMoviesApi = async () => {
   const res = await axios.get(
     `${process.env.NEXT_PUBLIC_TMDB_API_URL}/3/movie/now_playingfosdfnsdof`,

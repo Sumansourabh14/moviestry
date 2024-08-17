@@ -8,6 +8,7 @@ import {
   nowPlayingMoviesApi,
   searchMoviesApi,
   signUpApi,
+  userWatchlistApi,
 } from "./globalAPIs";
 import { useCookies } from "react-cookie";
 import { useRouter } from "next/navigation";
@@ -134,6 +135,29 @@ export const GlobalContextProvider = ({ children }) => {
     }
   };
 
+  const getUserWatchlist = async () => {
+    try {
+      setLoading(true);
+      setError({
+        error: false,
+        status: "",
+        message: "",
+      });
+      const res = await userWatchlistApi(moviestryToken);
+      setLoading(false);
+      return res;
+    } catch (error) {
+      console.error(error);
+      setError({
+        error: true,
+        status: error.response.status,
+        message: error.response.data.message,
+      });
+      setLoading(false);
+      return;
+    }
+  };
+
   const searchMovies = async (query) => {
     try {
       setLoading(true);
@@ -173,11 +197,11 @@ export const GlobalContextProvider = ({ children }) => {
     isUserLoggedIn();
   }, [cookies]);
 
-  useEffect(() => {
-    if (!user) {
-      router.push("/login");
-    }
-  }, [user]);
+  // useEffect(() => {
+  //   if (!user) {
+  //     router.push("/login");
+  //   }
+  // }, [user]);
 
   return (
     <GlobalContext.Provider
@@ -193,6 +217,7 @@ export const GlobalContextProvider = ({ children }) => {
         searchMovies,
         user,
         addToWatchlist,
+        getUserWatchlist,
       }}
     >
       {children}

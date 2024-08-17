@@ -8,12 +8,21 @@ import { Separator } from "@/components/ui/separator";
 import { Progress } from "@/components/ui/progress";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
+import { useToast } from "@/components/ui/use-toast";
 
 const MovieDetails = ({ params }) => {
   const [data, setData] = useState(null);
-  const { getMovieDetails, loading, addToWatchlist, user } =
-    useContext(GlobalContext);
+  const [isWatchlisted, setIsWatchlisted] = useState(false);
+  const {
+    getMovieDetails,
+    loading,
+    addToWatchlist,
+    removeFromWatchlist,
+    user,
+    watchlistMedia,
+  } = useContext(GlobalContext);
   const router = useRouter();
+  const { toast } = useToast();
 
   const movieId = params.id;
 
@@ -39,12 +48,51 @@ const MovieDetails = ({ params }) => {
     document.title = `${data?.original_title} | Moviestry`;
   }, [data]);
 
-  const handleAddToWatchlist = async (id) => {
+  useEffect(() => {
+    if (watchlistMedia.length > 0) {
+      const array = watchlistMedia.map((media) => media.mediaId);
+
+      if (array.includes(data.id)) {
+        setIsWatchlisted(true);
+      }
+    }
+  }, [watchlistMedia]);
+
+  const handleWatchlistMedia = async (id) => {
     if (!user) {
       router.push("/login");
       return;
     }
-    await addToWatchlist(id);
+
+    if (isWatchlisted) {
+      const res = await removeFromWatchlist(data.id);
+      if (res.data.success) {
+        setIsWatchlisted(false);
+        toast({
+          description: "Successfully removed from your watchlist",
+        });
+      }
+    } else {
+      const res = await addToWatchlist(
+        id,
+        data.adult,
+        data.backdrop_path,
+        data.genre_ids,
+        data.id,
+        data.original_language,
+        data.original_title,
+        data.overview,
+        data.poster_path,
+        data.release_date,
+        data.title
+      );
+      if (res.data.success) {
+        setIsWatchlisted(true);
+        toast({
+          description: "Successfully added to your watchlist",
+        });
+      }
+    }
   };
 
   const convertMinutesToHours = (minutes) => {
@@ -127,20 +175,6 @@ const MovieDetails = ({ params }) => {
                   ))}
                 </section>
               )}
-              {/* {data?.production_companies.length > 0 && (
-                <section className="flex gap-2">
-                  {data?.production_companies.map((company) => (
-                    <section key={company.id}>
-                      <Image
-                        src={`${process.env.NEXT_PUBLIC_TMDB_IMAGE_BASE_URL}/w500/${company.logo_path}`}
-                        alt=""
-                        width={100}
-                        height={100}
-                      />
-                    </section>
-                  ))}
-                </section>
-              )} */}
               <section className="flex gap-4 items-center">
                 {
                   <p className="text-5xl">
@@ -150,8 +184,8 @@ const MovieDetails = ({ params }) => {
                 <Progress value={data.vote_average * 10} />
               </section>
               <div>
-                <Button onClick={() => handleAddToWatchlist(data.id)}>
-                  Add to Watchlist
+                <Button onClick={() => handleWatchlistMedia(data.id)}>
+                  {isWatchlisted ? "Remove from Watchlist" : "Add to Watchlist"}
                 </Button>
               </div>
             </section>

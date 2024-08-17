@@ -6,6 +6,7 @@ import {
   loginApi,
   movieDetailsApi,
   nowPlayingMoviesApi,
+  removeFromWatchlistApi,
   searchMoviesApi,
   signUpApi,
   userWatchlistApi,
@@ -21,6 +22,7 @@ export const GlobalContextProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [cookies, setCookie, removeCookie] = useCookies();
   const [moviestryToken, setMoviestryToken] = useState(cookies.moviestry_token);
+  const [watchlistMedia, setWatchlistMedia] = useState([]);
   const router = useRouter();
 
   const signUp = async (name, email, password) => {
@@ -112,7 +114,19 @@ export const GlobalContextProvider = ({ children }) => {
     }
   };
 
-  const addToWatchlist = async (id) => {
+  const addToWatchlist = async (
+    id,
+    adult,
+    backdrop_path,
+    genre_ids,
+    mediaId,
+    original_language,
+    original_title,
+    overview,
+    poster_path,
+    release_date,
+    title
+  ) => {
     try {
       setLoading(true);
       setError({
@@ -120,7 +134,43 @@ export const GlobalContextProvider = ({ children }) => {
         status: "",
         message: "",
       });
-      const res = await addToWatchlistApi(id, moviestryToken);
+      const res = await addToWatchlistApi(
+        id,
+        adult,
+        backdrop_path,
+        genre_ids,
+        mediaId,
+        original_language,
+        original_title,
+        overview,
+        poster_path,
+        release_date,
+        title,
+        moviestryToken
+      );
+      setLoading(false);
+      return res;
+    } catch (error) {
+      console.error(error);
+      setError({
+        error: true,
+        status: error.response.status,
+        message: error.response.data.message,
+      });
+      setLoading(false);
+      return;
+    }
+  };
+
+  const removeFromWatchlist = async (id) => {
+    try {
+      setLoading(true);
+      setError({
+        error: false,
+        status: "",
+        message: "",
+      });
+      const res = await removeFromWatchlistApi(id, moviestryToken);
       setLoading(false);
       return res;
     } catch (error) {
@@ -144,6 +194,7 @@ export const GlobalContextProvider = ({ children }) => {
         message: "",
       });
       const res = await userWatchlistApi(moviestryToken);
+      setWatchlistMedia(res.data.watchlist);
       setLoading(false);
       return res;
     } catch (error) {
@@ -197,11 +248,15 @@ export const GlobalContextProvider = ({ children }) => {
     isUserLoggedIn();
   }, [cookies]);
 
-  // useEffect(() => {
-  //   if (!user) {
-  //     router.push("/login");
-  //   }
-  // }, [user]);
+  useEffect(() => {
+    // if (!user) {
+    //   router.push("/login");
+    // }
+
+    if (!!user) {
+      getUserWatchlist();
+    }
+  }, [user]);
 
   return (
     <GlobalContext.Provider
@@ -218,6 +273,8 @@ export const GlobalContextProvider = ({ children }) => {
         user,
         addToWatchlist,
         getUserWatchlist,
+        watchlistMedia,
+        removeFromWatchlist,
       }}
     >
       {children}

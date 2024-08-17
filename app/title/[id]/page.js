@@ -6,13 +6,16 @@ import { GlobalContext } from "@/services/globalContext";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { Progress } from "@/components/ui/progress";
-import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
+import { Bookmark, CircleCheckBig } from "lucide-react";
+import ActionButton from "@/components/buttons/ActionButton";
+import MovieDetailsSkeleton from "@/components/skeletons/MovieDetailsSkeleton";
 
 const MovieDetails = ({ params }) => {
   const [data, setData] = useState(null);
   const [isWatchlisted, setIsWatchlisted] = useState(false);
+  const [isWatched, setIsWatched] = useState(false);
   const {
     getMovieDetails,
     loading,
@@ -20,6 +23,9 @@ const MovieDetails = ({ params }) => {
     removeFromWatchlist,
     user,
     watchlistMedia,
+    addToWatched,
+    removeFromWatched,
+    watchedMedia,
   } = useContext(GlobalContext);
   const router = useRouter();
   const { toast } = useToast();
@@ -58,6 +64,16 @@ const MovieDetails = ({ params }) => {
     }
   }, [watchlistMedia]);
 
+  useEffect(() => {
+    if (watchedMedia.length > 0) {
+      const array = watchedMedia.map((media) => media.mediaId);
+
+      if (array.includes(data.id)) {
+        setIsWatched(true);
+      }
+    }
+  }, [watchedMedia]);
+
   const handleWatchlistMedia = async (id) => {
     if (!user) {
       router.push("/login");
@@ -95,6 +111,43 @@ const MovieDetails = ({ params }) => {
     }
   };
 
+  const handleWatchedMedia = async (id) => {
+    if (!user) {
+      router.push("/login");
+      return;
+    }
+
+    if (isWatched) {
+      const res = await removeFromWatched(data.id);
+      if (res.data.success) {
+        setIsWatched(false);
+        toast({
+          description: "Successfully removed from your watched list",
+        });
+      }
+    } else {
+      const res = await addToWatched(
+        id,
+        data.adult,
+        data.backdrop_path,
+        data.genre_ids,
+        data.id,
+        data.original_language,
+        data.original_title,
+        data.overview,
+        data.poster_path,
+        data.release_date,
+        data.title
+      );
+      if (res.data.success) {
+        setIsWatched(true);
+        toast({
+          description: "Successfully added to your watched list",
+        });
+      }
+    }
+  };
+
   const convertMinutesToHours = (minutes) => {
     const hours = Math.floor(minutes / 60); // Get the whole number of hours
     const remainingMinutes = minutes % 60;
@@ -102,7 +155,7 @@ const MovieDetails = ({ params }) => {
   };
 
   if (loading) {
-    return <p>loading...</p>;
+    return <MovieDetailsSkeleton />;
   }
 
   return (
@@ -183,10 +236,19 @@ const MovieDetails = ({ params }) => {
                 }
                 <Progress value={data.vote_average * 10} />
               </section>
-              <div>
-                <Button onClick={() => handleWatchlistMedia(data.id)}>
-                  {isWatchlisted ? "Remove from Watchlist" : "Add to Watchlist"}
-                </Button>
+              <div className="flex gap-2">
+                <ActionButton
+                  handleClick={() => handleWatchlistMedia(data.id)}
+                  title={
+                    isWatchlisted ? "Remove from Watchlist" : "Want to Watch"
+                  }
+                  icon={<Bookmark className="mr-2" />}
+                />
+                <ActionButton
+                  handleClick={() => handleWatchedMedia(data.id)}
+                  title={isWatched ? "Watched" : "Already Watched"}
+                  icon={<CircleCheckBig className="mr-2" />}
+                />
               </div>
             </section>
           </section>

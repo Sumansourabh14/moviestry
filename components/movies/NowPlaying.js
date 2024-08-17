@@ -1,8 +1,7 @@
 "use client";
 import data from "@/utils/sampleContent/nowPlaying.json";
-import Image from "next/image";
 import Link from "next/link";
-import { Card, CardContent, CardHeader } from "../ui/card";
+import MediaCard from "../cards/MediaCard";
 import {
   Carousel,
   CarouselContent,
@@ -10,14 +9,13 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "../ui/carousel";
-import { Progress } from "../ui/progress";
 
 const NowPlaying = () => {
   const movies = data.results;
 
   return (
     <section style={{ maxWidth: "1400px" }}>
-      <h2 className="text-3xl pb-4">Now Playing</h2>
+      <h2 className="text-3xl pb-4 font-bold">Now Playing</h2>
 
       <div>
         <Carousel
@@ -30,22 +28,12 @@ const NowPlaying = () => {
             {movies.map((movie) => (
               <CarouselItem key={movie.id} className="basis-1/7 relative">
                 <Link href={`/title/${movie.id}`}>
-                  <Card>
-                    <CardHeader style={{ padding: 0 }}>
-                      <Image
-                        src={`${process.env.NEXT_PUBLIC_TMDB_IMAGE_BASE_URL}/w500/${movie.poster_path}`}
-                        alt={movie.title}
-                        height={270}
-                        width={180}
-                      />
-                    </CardHeader>
-                    <CardContent className="p-0 mt-2">
-                      <Progress
-                        value={movie.vote_average * 10}
-                        className={`h-2 w-full rounded-full`}
-                      />
-                    </CardContent>
-                  </Card>
+                  <MediaCard
+                    key={movie.id}
+                    posterPath={movie.poster_path}
+                    title={movie.title}
+                    releaseDate={movie.release_date}
+                  />
                 </Link>
               </CarouselItem>
             ))}

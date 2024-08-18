@@ -22,12 +22,12 @@ export default function Home() {
 
   return (
     <main className="flex flex-col items-center justify-between p-24">
-      <section>
-        <h1 className="text-5xl md:text-8xl xl:text-9xl 2xl:text-[12rem] font-extrabold py-36">
+      <section className="py-28 flex flex-col gap-8">
+        <h1 className="text-5xl md:text-8xl xl:text-9xl 2xl:text-[12rem] font-extrabold ">
           Moviestry.
         </h1>
         <form onSubmit={handleClick}>
-          <section className="max-w-[400px] mx-auto flex gap-2">
+          <section className="flex gap-2 max-w-[500px] mx-auto">
             <SearchInput query={query} handleQueryChange={handleQueryChange} />
             <Button type="submit">Search</Button>
           </section>

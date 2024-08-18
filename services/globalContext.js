@@ -11,11 +11,11 @@ import {
   nowPlayingMoviesApi,
   removeFromWatchedApi,
   removeFromWatchlistApi,
-  searchMoviesApi,
   signUpApi,
   userWatchedApi,
   userWatchlistApi,
 } from "./globalAPIs";
+import { searchMoviesApi } from "./tmdbAPI";
 
 export const GlobalContext = createContext();
 
@@ -129,7 +129,8 @@ export const GlobalContextProvider = ({ children }) => {
     overview,
     poster_path,
     release_date,
-    title
+    title,
+    runtime
   ) => {
     try {
       setLoading(true);
@@ -150,6 +151,7 @@ export const GlobalContextProvider = ({ children }) => {
         poster_path,
         release_date,
         title,
+        runtime,
         moviestryToken
       );
       setLoading(false);
@@ -224,7 +226,8 @@ export const GlobalContextProvider = ({ children }) => {
     overview,
     poster_path,
     release_date,
-    title
+    title,
+    runtime
   ) => {
     try {
       setLoading(true);
@@ -245,6 +248,7 @@ export const GlobalContextProvider = ({ children }) => {
         poster_path,
         release_date,
         title,
+        runtime,
         moviestryToken
       );
       setLoading(false);

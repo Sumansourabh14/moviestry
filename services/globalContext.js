@@ -11,11 +11,11 @@ import {
   nowPlayingMoviesApi,
   removeFromWatchedApi,
   removeFromWatchlistApi,
-  searchMoviesApi,
   signUpApi,
   userWatchedApi,
   userWatchlistApi,
 } from "./globalAPIs";
+import { searchMoviesApi } from "./tmdbAPI";
 
 export const GlobalContext = createContext();
 

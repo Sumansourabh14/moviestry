@@ -55,24 +55,24 @@ const MovieDetails = ({ params }) => {
   }, [data]);
 
   useEffect(() => {
-    if (watchlistMedia.length > 0) {
+    if (watchlistMedia.length > 0 && !!data) {
       const array = watchlistMedia.map((media) => media.mediaId);
 
       if (array.includes(data.id)) {
         setIsWatchlisted(true);
       }
     }
-  }, [watchlistMedia]);
+  }, [watchlistMedia, data]);
 
   useEffect(() => {
-    if (watchedMedia.length > 0) {
+    if (watchedMedia.length > 0 && !!data) {
       const array = watchedMedia.map((media) => media.mediaId);
 
       if (array.includes(data.id)) {
         setIsWatched(true);
       }
     }
-  }, [watchedMedia]);
+  }, [watchedMedia, data]);
 
   const handleWatchlistMedia = async (id) => {
     if (!user) {

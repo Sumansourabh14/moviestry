@@ -93,14 +93,15 @@ const MovieDetails = ({ params }) => {
         id,
         data.adult,
         data.backdrop_path,
-        data.genre_ids,
+        data.genres,
         data.id,
         data.original_language,
         data.original_title,
         data.overview,
         data.poster_path,
         data.release_date,
-        data.title
+        data.title,
+        data.runtime
       );
       if (res.data.success) {
         setIsWatchlisted(true);
@@ -130,14 +131,15 @@ const MovieDetails = ({ params }) => {
         id,
         data.adult,
         data.backdrop_path,
-        data.genre_ids,
+        data.genres,
         data.id,
         data.original_language,
         data.original_title,
         data.overview,
         data.poster_path,
         data.release_date,
-        data.title
+        data.title,
+        data.runtime
       );
       if (res.data.success) {
         setIsWatched(true);
@@ -171,7 +173,7 @@ const MovieDetails = ({ params }) => {
           }}
           className="w-full h-[300px] sm:h-[350px] md:h-[400px] lg:h-[450px] xl:h-[500px] 2xl:h-[550px]"
         ></div>
-        <section className="max-w-[1400px] mx-auto px-6">
+        <section className="max-w-[1200px] mx-auto px-6">
           <section className="flex gap-8 ">
             <section className="relative w-full sm:w-64 sm:h-96 h-auto">
               <Image
@@ -218,7 +220,7 @@ const MovieDetails = ({ params }) => {
                   </section>
                 )}
               </section>
-              <p className="max-w-[900px]">{data.overview}</p>
+              <p className="max-w-[800px]">{data.overview}</p>
               {data.genres.length > 0 && (
                 <section className="flex gap-2">
                   {data.genres.map((genre) => (

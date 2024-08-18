@@ -47,6 +47,7 @@ export const addToWatchlistApi = async (
   poster_path,
   release_date,
   title,
+  runtime,
   token
 ) => {
   const res = await axios.post(
@@ -62,6 +63,7 @@ export const addToWatchlistApi = async (
       poster_path,
       release_date,
       title,
+      runtime,
     },
     {
       headers: {
@@ -108,6 +110,7 @@ export const addToWatchedApi = async (
   poster_path,
   release_date,
   title,
+  runtime,
   token
 ) => {
   const res = await axios.post(
@@ -123,6 +126,7 @@ export const addToWatchedApi = async (
       poster_path,
       release_date,
       title,
+      runtime,
     },
     {
       headers: {

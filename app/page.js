@@ -1,7 +1,8 @@
 "use client";
 import SearchInput from "@/components/forms/SearchInput";
-import NowPlaying from "@/components/movies/NowPlaying";
+import MoviesRow from "@/components/movies/MoviesRow";
 import { Button } from "@/components/ui/button";
+import { API_REQUESTS } from "@/services/tmdbApiUrls";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -16,7 +17,6 @@ export default function Home() {
   const handleClick = (e) => {
     e.preventDefault();
     const encodedQuery = encodeURI(query);
-    console.log({ query, encodedQuery });
     router.push(`/search/${encodedQuery}`);
   };
 
@@ -33,7 +33,9 @@ export default function Home() {
           </section>
         </form>
       </section>
-      <NowPlaying />
+      <section className="flex flex-col gap-12">
+        <MoviesRow title="Now Playing" endpoint={API_REQUESTS.nowPlaying} />
+      </section>
     </main>
   );
 }

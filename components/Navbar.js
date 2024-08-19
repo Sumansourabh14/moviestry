@@ -1,6 +1,6 @@
 "use client";
 import { GlobalContext } from "@/services/globalContext";
-import { CircleCheckBig, List, LogOut } from "lucide-react";
+import { CircleCheckBig, LayoutDashboard, List, LogOut } from "lucide-react";
 import Link from "next/link";
 import { useContext } from "react";
 import {
@@ -55,6 +55,15 @@ const Navbar = () => {
                 <DropdownMenuContent className="w-[200px]">
                   <DropdownMenuLabel>My Account</DropdownMenuLabel>
                   <DropdownMenuSeparator />
+                  <DropdownMenuItem>
+                    <Link
+                      href={`/dashboard`}
+                      className="flex gap-1 items-center"
+                    >
+                      <LayoutDashboard className="mr-2 h-4 w-4" />
+                      <span>Dashboard</span>
+                    </Link>
+                  </DropdownMenuItem>
                   <DropdownMenuItem>
                     <Link
                       href={`/user/watchlist`}

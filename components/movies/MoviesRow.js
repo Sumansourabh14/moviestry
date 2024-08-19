@@ -9,24 +9,41 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "../ui/carousel";
+import { useContext, useEffect, useState } from "react";
+import { GlobalContext } from "@/services/globalContext";
 
-const NowPlaying = () => {
-  const movies = data.results;
+const MoviesRow = ({ title, endpoint }) => {
+  // const movies = data.results;
+  const [movies, setMovies] = useState([]);
+  const { getMovies } = useContext(GlobalContext);
+
+  useEffect(() => {
+    let mounted = true;
+
+    const fetchMovies = async () => {
+      const res = await getMovies(endpoint);
+
+      if (mounted) {
+        setMovies(res.data.results);
+      }
+    };
+
+    fetchMovies();
+
+    return () => {
+      mounted = false;
+    };
+  }, []);
 
   return (
     <section style={{ maxWidth: "1400px" }}>
-      <h2 className="text-3xl pb-4 font-bold">Now Playing</h2>
+      <h2 className="text-3xl pb-4 font-bold">{title}</h2>
 
       <div>
-        <Carousel
-          opts={{
-            align: "start",
-          }}
-          className="w-full"
-        >
+        <Carousel className="w-full">
           <CarouselContent>
             {movies.map((movie) => (
-              <CarouselItem key={movie.id} className="basis-1/7 relative">
+              <CarouselItem key={movie.id} className="max-w-[220px] relative">
                 <Link href={`/title/${movie.id}`}>
                   <MediaCard
                     key={movie.id}
@@ -46,4 +63,4 @@ const NowPlaying = () => {
   );
 };
 
-export default NowPlaying;
+export default MoviesRow;

@@ -28,7 +28,7 @@ const Login = () => {
       const res = await login(email, password);
 
       if (res.status === 200) {
-        router.push("/");
+        router.push("/dashboard");
       }
     } catch (error) {
       return;
@@ -37,7 +37,7 @@ const Login = () => {
 
   useEffect(() => {
     if (!!user) {
-      router.push("/");
+      router.push("/dashboard");
     }
   }, [user]);
 

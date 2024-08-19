@@ -1,8 +1,8 @@
 export const API_REQUESTS = {
   nowPlaying: `${process.env.NEXT_PUBLIC_TMDB_API_URL}/3/movie/now_playing`,
-  popular: `${process.env.NEXT_PUBLIC_TMDB_API_URL}/3/movie/popular?language=en-US&page=1`,
-  topUpcoming: `${process.env.NEXT_PUBLIC_TMDB_API_URL}/3/movie/upcoming?language=en-US&page=1`,
-  topRated: `${process.env.NEXT_PUBLIC_TMDB_API_URL}/3/movie/top_rated?language=en-US&page=1`,
+  popular: `${process.env.NEXT_PUBLIC_TMDB_API_URL}/3/movie/popular`,
+  topUpcoming: `${process.env.NEXT_PUBLIC_TMDB_API_URL}/3/movie/upcoming`,
+  topRated: `${process.env.NEXT_PUBLIC_TMDB_API_URL}/3/movie/top_rated`,
   trending: `${process.env.NEXT_PUBLIC_TMDB_API_URL}/3/trending/all/day`,
   sciFi: `${process.env.NEXT_PUBLIC_TMDB_API_URL}/3/discover/movie?with_genres=878`,
   war: `${process.env.NEXT_PUBLIC_TMDB_API_URL}/3/discover/movie?with_genres=10752`,

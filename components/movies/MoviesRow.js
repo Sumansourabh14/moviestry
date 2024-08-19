@@ -1,6 +1,7 @@
 "use client";
-import data from "@/utils/sampleContent/nowPlaying.json";
+import { GlobalContext } from "@/services/globalContext";
 import Link from "next/link";
+import { useContext, useEffect, useState } from "react";
 import MediaCard from "../cards/MediaCard";
 import {
   Carousel,
@@ -9,11 +10,8 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "../ui/carousel";
-import { useContext, useEffect, useState } from "react";
-import { GlobalContext } from "@/services/globalContext";
 
 const MoviesRow = ({ title, endpoint }) => {
-  // const movies = data.results;
   const [movies, setMovies] = useState([]);
   const { getMovies } = useContext(GlobalContext);
 

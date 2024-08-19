@@ -1,6 +1,6 @@
 "use client";
 import { GlobalContext } from "@/services/globalContext";
-import { CircleCheckBig, List, LogOut } from "lucide-react";
+import { CircleCheckBig, LayoutDashboard, List, LogOut } from "lucide-react";
 import Link from "next/link";
 import { useContext } from "react";
 import {
@@ -26,22 +26,10 @@ const Navbar = () => {
         <div className="hidden sm:block sm:ml-6">
           <div className="flex space-x-4">
             <Link
-              href="/"
+              href="/movies"
               className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
             >
               Movies
-            </Link>
-            <Link
-              href="/"
-              className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-            >
-              TV
-            </Link>
-            <Link
-              href="/"
-              className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-            >
-              About
             </Link>
           </div>
         </div>
@@ -55,6 +43,15 @@ const Navbar = () => {
                 <DropdownMenuContent className="w-[200px]">
                   <DropdownMenuLabel>My Account</DropdownMenuLabel>
                   <DropdownMenuSeparator />
+                  <DropdownMenuItem>
+                    <Link
+                      href={`/dashboard`}
+                      className="flex gap-1 items-center"
+                    >
+                      <LayoutDashboard className="mr-2 h-4 w-4" />
+                      <span>Dashboard</span>
+                    </Link>
+                  </DropdownMenuItem>
                   <DropdownMenuItem>
                     <Link
                       href={`/user/watchlist`}

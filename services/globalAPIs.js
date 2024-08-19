@@ -161,12 +161,36 @@ export const userWatchedApi = async (token) => {
   return res;
 };
 
-export const nowPlayingMoviesApi = async () => {
+export const totalWatchTimeApi = async (token) => {
   const res = await axios.get(
-    `${process.env.NEXT_PUBLIC_TMDB_API_URL}/3/movie/now_playingfosdfnsdof`,
+    `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/api/v1/user-stats/total-watch-time`,
     {
       headers: {
-        Authorization: `Bearer ${process.env.NEXT_PUBLIC_TMDB_API_ACCESS_TOKEN}`,
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+  return res;
+};
+
+export const longestMovieWatchedApi = async (token) => {
+  const res = await axios.get(
+    `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/api/v1/user-stats/longest-watch-time`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+  return res;
+};
+
+export const shortestMovieWatchedApi = async (token) => {
+  const res = await axios.get(
+    `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/api/v1/user-stats/shortest-watch-time`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
       },
     }
   );

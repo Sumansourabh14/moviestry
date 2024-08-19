@@ -12,22 +12,10 @@ const Footer = () => {
         <div className="hidden sm:block sm:ml-6">
           <div className="flex space-x-4">
             <Link
-              href="/"
+              href="/movies"
               className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
             >
               Movies
-            </Link>
-            <Link
-              href="/"
-              className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-            >
-              TV
-            </Link>
-            <Link
-              href="/"
-              className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-            >
-              About
             </Link>
           </div>
         </div>

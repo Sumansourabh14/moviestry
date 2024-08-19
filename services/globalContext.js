@@ -7,15 +7,17 @@ import {
   addToWatchlistApi,
   isAuthenticatedApi,
   loginApi,
+  longestMovieWatchedApi,
   movieDetailsApi,
-  nowPlayingMoviesApi,
   removeFromWatchedApi,
   removeFromWatchlistApi,
+  shortestMovieWatchedApi,
   signUpApi,
+  totalWatchTimeApi,
   userWatchedApi,
   userWatchlistApi,
 } from "./globalAPIs";
-import { searchMoviesApi } from "./tmdbAPI";
+import { fetchMoviesApi, searchMoviesApi } from "./tmdbAPI";
 
 export const GlobalContext = createContext();
 
@@ -92,14 +94,19 @@ export const GlobalContextProvider = ({ children }) => {
     }
   };
 
-  const getNowPlaying = async () => {
+  const getMovies = async (endpoint) => {
     try {
-      const res = await nowPlayingMoviesApi();
+      setLoading(true);
+      const res = await fetchMoviesApi(endpoint);
+      setLoading(false);
+      return res;
     } catch (error) {
       setError({
-        error: error.response.data.status_message,
+        error: true,
         status: error.response.status,
+        message: error.response.data.status_message,
       });
+      setLoading(false);
     }
   };
 
@@ -312,6 +319,75 @@ export const GlobalContextProvider = ({ children }) => {
     }
   };
 
+  const getUserTotalWatchTime = async () => {
+    try {
+      setLoading(true);
+      setError({
+        error: false,
+        status: "",
+        message: "",
+      });
+      const res = await totalWatchTimeApi(moviestryToken);
+      setLoading(false);
+      return res;
+    } catch (error) {
+      console.error(error);
+      setError({
+        error: true,
+        status: error.response.status,
+        message: error.response.data.message,
+      });
+      setLoading(false);
+      return;
+    }
+  };
+
+  const getUserLongestWatchTime = async () => {
+    try {
+      setLoading(true);
+      setError({
+        error: false,
+        status: "",
+        message: "",
+      });
+      const res = await longestMovieWatchedApi(moviestryToken);
+      setLoading(false);
+      return res;
+    } catch (error) {
+      console.error(error);
+      setError({
+        error: true,
+        status: error.response.status,
+        message: error.response.data.message,
+      });
+      setLoading(false);
+      return;
+    }
+  };
+
+  const getUserShortestWatchTime = async () => {
+    try {
+      setLoading(true);
+      setError({
+        error: false,
+        status: "",
+        message: "",
+      });
+      const res = await shortestMovieWatchedApi(moviestryToken);
+      setLoading(false);
+      return res;
+    } catch (error) {
+      console.error(error);
+      setError({
+        error: true,
+        status: error.response.status,
+        message: error.response.data.message,
+      });
+      setLoading(false);
+      return;
+    }
+  };
+
   const searchMovies = async (query) => {
     try {
       setLoading(true);
@@ -371,7 +447,6 @@ export const GlobalContextProvider = ({ children }) => {
         login,
         logout,
         moviestryToken,
-        getNowPlaying,
         getMovieDetails,
         searchMovies,
         user,
@@ -383,6 +458,7 @@ export const GlobalContextProvider = ({ children }) => {
         removeFromWatched,
         getUserWatched,
         watchedMedia,
+        getMovies,
       }}
     >
       {children}

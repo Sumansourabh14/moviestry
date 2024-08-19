@@ -11,3 +11,12 @@ export const searchMoviesApi = async (query) => {
   );
   return res;
 };
+
+export const fetchMoviesApi = async (endpoint) => {
+  const res = await axios.get(endpoint, {
+    headers: {
+      Authorization: `Bearer ${process.env.NEXT_PUBLIC_TMDB_API_ACCESS_TOKEN}`,
+    },
+  });
+  return res;
+};

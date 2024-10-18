@@ -3,7 +3,6 @@ import AlreadyAccount from "@/components/forms/AlreadyAccount";
 import FormError from "@/components/forms/FormError";
 import SignUpForm from "@/components/forms/SignUpForm";
 import { GlobalContext } from "@/services/globalContext";
-import postersData from "@/utils/sampleContent/moviePosters.json";
 import { useRouter } from "next/navigation";
 import { useContext, useEffect, useState } from "react";
 

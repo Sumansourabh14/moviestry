@@ -1,16 +1,15 @@
 "use client";
-import React, { useContext, useEffect, useState } from "react";
-import data from "@/utils/sampleContent/movieDetails.json";
-import Image from "next/image";
-import { GlobalContext } from "@/services/globalContext";
-import { Badge } from "@/components/ui/badge";
-import { Separator } from "@/components/ui/separator";
-import { Progress } from "@/components/ui/progress";
-import { useRouter } from "next/navigation";
-import { useToast } from "@/components/ui/use-toast";
-import { Bookmark, CircleCheckBig } from "lucide-react";
 import ActionButton from "@/components/buttons/ActionButton";
 import MovieDetailsSkeleton from "@/components/skeletons/MovieDetailsSkeleton";
+import { Badge } from "@/components/ui/badge";
+import { Progress } from "@/components/ui/progress";
+import { Separator } from "@/components/ui/separator";
+import { useToast } from "@/components/ui/use-toast";
+import { GlobalContext } from "@/services/globalContext";
+import { Bookmark, CircleCheckBig } from "lucide-react";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { useContext, useEffect, useState } from "react";
 
 const MovieDetails = ({ params }) => {
   const [data, setData] = useState(null);

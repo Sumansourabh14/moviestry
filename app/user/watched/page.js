@@ -60,8 +60,7 @@ const Watched = () => {
         ) : (
           <section>
             <p>
-              Oops! You have not watched any movie or TV show. Start watching
-              now!
+              You have not watched any movie or TV show. Start watching now!
             </p>
           </section>
         )}

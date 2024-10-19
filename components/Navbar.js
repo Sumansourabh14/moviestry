@@ -11,6 +11,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
+import { ThemeModeToggle } from "./ThemeModeToggle";
 
 const Navbar = () => {
   const { user, logout } = useContext(GlobalContext);
@@ -33,6 +34,7 @@ const Navbar = () => {
             </Link>
           </div>
         </div>
+        <ThemeModeToggle />
         <div className="hidden sm:block sm:ml-6">
           {!!user ? (
             <div className="flex space-x-4">

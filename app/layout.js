@@ -4,6 +4,7 @@ import { GlobalContextProvider } from "@/services/globalContext";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Toaster } from "@/components/ui/toaster";
+import { ThemeProvider } from "@/components/theme-provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,10 +18,17 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <GlobalContextProvider>
         <body className={inter.className}>
-          <Navbar />
-          {children}
-          <Toaster />
-          <Footer />
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <Navbar />
+            {children}
+            <Toaster />
+            <Footer />
+          </ThemeProvider>
         </body>
       </GlobalContextProvider>
     </html>

@@ -25,11 +25,7 @@ const Login = () => {
     try {
       e.preventDefault();
 
-      const res = await login(email, password);
-
-      if (res.status === 200) {
-        router.push("/dashboard");
-      }
+      await login(email, password);
     } catch (error) {
       return;
     }

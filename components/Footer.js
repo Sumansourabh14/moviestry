@@ -1,3 +1,4 @@
+import { siteTitle } from "@/utils/content/site";
 import Link from "next/link";
 
 const Footer = () => {
@@ -6,7 +7,7 @@ const Footer = () => {
       <div className="flex items-center justify-between py-4 px-4">
         <div className="flex-shrink-0">
           <Link href="/" className="text-white text-xl font-bold">
-            Moviestry.
+            {siteTitle}.
           </Link>
         </div>
         <div className="hidden sm:block sm:ml-6">
@@ -21,8 +22,8 @@ const Footer = () => {
         </div>
       </div>
       <p className="text-sm text-gray-400 text-center pt-8">
-        &copy; <span id="year">{new Date().getFullYear()}</span> Moviestry. All
-        rights reserved.
+        &copy; <span id="year">{new Date().getFullYear()}</span> {siteTitle}.
+        All rights reserved.
       </p>
     </footer>
   );

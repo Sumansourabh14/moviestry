@@ -6,6 +6,7 @@ import { Progress } from "@/components/ui/progress";
 import { Separator } from "@/components/ui/separator";
 import { useToast } from "@/components/ui/use-toast";
 import { GlobalContext } from "@/services/globalContext";
+import { siteTitle } from "@/utils/content/site";
 import { Bookmark, CircleCheckBig } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -50,7 +51,7 @@ const MovieDetails = ({ params }) => {
   }, [movieId]);
 
   useEffect(() => {
-    document.title = `${data?.original_title} | Moviestry`;
+    document.title = `${data?.original_title} | ${siteTitle}`;
   }, [data]);
 
   useEffect(() => {

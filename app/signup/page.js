@@ -3,6 +3,7 @@ import AlreadyAccount from "@/components/forms/AlreadyAccount";
 import FormError from "@/components/forms/FormError";
 import SignUpForm from "@/components/forms/SignUpForm";
 import { GlobalContext } from "@/services/globalContext";
+import { siteTitle } from "@/utils/content/site";
 import { useRouter } from "next/navigation";
 import { useContext, useEffect, useState } from "react";
 
@@ -48,7 +49,7 @@ const SignUp = () => {
 
   return (
     <>
-      <title>Sign Up | Moviestry</title>
+      <title>Sign Up | {siteTitle}</title>
       <section className="flex flex-col items-center justify-between p-24">
         <section className="flex flex-col md:flex-row py-14">
           <section className="flex flex-col items-center gap-8">
@@ -56,7 +57,7 @@ const SignUp = () => {
               Sign Up
             </h1>
             <p className="text-gray-500 text-center">
-              Join Moviestry to manage your movies and TV
+              Join {siteTitle} to manage your movies and TV
             </p>
             {!!error.error && <FormError message={error.message} />}
             <section>

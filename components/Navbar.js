@@ -12,6 +12,7 @@ import {
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
 import { ThemeModeToggle } from "./ThemeModeToggle";
+import { siteTitle } from "@/utils/content/site";
 
 const Navbar = () => {
   const { user, logout } = useContext(GlobalContext);
@@ -21,7 +22,7 @@ const Navbar = () => {
       <div className="flex items-center justify-between py-4 px-4">
         <div className="flex-shrink-0">
           <Link href="/" className="text-white text-xl font-bold">
-            Moviestry.
+            {siteTitle}.
           </Link>
         </div>
         <div className="hidden sm:block sm:ml-6">

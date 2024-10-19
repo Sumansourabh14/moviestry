@@ -3,6 +3,7 @@ import MediaCard from "@/components/cards/MediaCard";
 import PageLayout from "@/components/screens/PageLayout";
 import MovieCardSkeleton from "@/components/skeletons/MovieCardSkeleton";
 import { GlobalContext } from "@/services/globalContext";
+import { siteTitle } from "@/utils/content/site";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useContext, useEffect, useState } from "react";
@@ -37,7 +38,10 @@ const Watchlist = () => {
   }, [user]);
 
   return (
-    <PageLayout title={"My Watchlist | Moviestry"} pageTitle={"My Watchlist"}>
+    <PageLayout
+      title={`My Watchlist | ${siteTitle}`}
+      pageTitle={"My Watchlist"}
+    >
       <section>
         {loading ? (
           <MovieCardSkeleton />

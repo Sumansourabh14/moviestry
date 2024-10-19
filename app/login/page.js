@@ -3,6 +3,7 @@ import AlreadyAccount from "@/components/forms/AlreadyAccount";
 import FormError from "@/components/forms/FormError";
 import LoginForm from "@/components/forms/LoginForm";
 import { GlobalContext } from "@/services/globalContext";
+import { siteTitle } from "@/utils/content/site";
 import { useRouter } from "next/navigation";
 import { useContext, useEffect, useState } from "react";
 
@@ -39,7 +40,7 @@ const Login = () => {
 
   return (
     <>
-      <title>Login | Moviestry</title>
+      <title>Login | {siteTitle}</title>
       <section className="flex flex-col items-center justify-between p-24">
         <section className="flex flex-col md:flex-row py-14">
           <section className="flex flex-col items-center gap-8">

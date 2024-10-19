@@ -3,6 +3,7 @@ import MediaCard from "@/components/cards/MediaCard";
 import PageLayout from "@/components/screens/PageLayout";
 import MovieCardSkeleton from "@/components/skeletons/MovieCardSkeleton";
 import { GlobalContext } from "@/services/globalContext";
+import { siteTitle } from "@/utils/content/site";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useContext, useEffect, useState } from "react";
@@ -38,7 +39,7 @@ const Watched = () => {
 
   return (
     <PageLayout
-      title={"Already Watched | Moviestry"}
+      title={`Already Watched | ${siteTitle}`}
       pageTitle={"Already Watched"}
     >
       <section>

@@ -9,6 +9,7 @@ import data from "@/utils/sampleContent/movieSearchDeadpool.json";
 import { useRouter } from "next/navigation";
 import SearchInput from "@/components/forms/SearchInput";
 import { Button } from "@/components/ui/button";
+import { siteTitle } from "@/utils/content/site";
 
 const SearchQueryResult = ({ params }) => {
   const [data, setData] = useState([]);
@@ -52,7 +53,7 @@ const SearchQueryResult = ({ params }) => {
 
   return (
     <>
-      <title>{`${decodedQuery} Search Result | Moviestry`}</title>
+      <title>{`${decodedQuery} Search Result | ${siteTitle}`}</title>
       <section className="flex flex-col items-center justify-between p-24 min-h-[90vh]">
         <section className="flex flex-col md:flex-row py-8">
           <section className="flex flex-col items-center gap-8">

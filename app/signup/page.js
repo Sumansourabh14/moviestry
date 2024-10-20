@@ -47,9 +47,12 @@ const SignUp = () => {
     }
   }, [user]);
 
+  useEffect(() => {
+    document.title = `Sign Up | ${siteTitle}`;
+  }, []);
+
   return (
     <>
-      <title>Sign Up | {siteTitle}</title>
       <section className="flex flex-col items-center justify-between p-24">
         <section className="flex flex-col md:flex-row py-14">
           <section className="flex flex-col items-center gap-8">

@@ -6,7 +6,10 @@ const MediaCard = ({ posterPath, title, releaseDate }) => {
     <Card className="max-w-[200px] rounded-sm">
       <CardHeader className="p-0 pb-2">
         <Image
-          src={`${process.env.NEXT_PUBLIC_TMDB_IMAGE_BASE_URL}/w500/${posterPath}`}
+          src={
+            process.env.NEXT_PUBLIC_TMDB_IMAGE_BASE_URL + `/w500/${posterPath}`
+          }
+          // src={`${process.env.NEXT_PUBLIC_TMDB_IMAGE_BASE_URL}/w500/${posterPath}`}
           alt={title}
           height={300}
           width={200}

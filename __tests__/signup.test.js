@@ -3,13 +3,14 @@ import { GlobalContextProvider } from "@/services/globalContext";
 import { render, screen } from "@testing-library/react";
 import { useRouter } from "next/navigation";
 import "@testing-library/jest-dom";
+import userEvent from "@testing-library/user-event";
 
 // Mock the useRouter hook
 jest.mock("next/navigation", () => ({
   useRouter: jest.fn(),
 }));
 
-describe("Page", () => {
+describe("Sign up page render", () => {
   beforeEach(() => {
     useRouter.mockReturnValue({
       pathname: "/",
@@ -71,5 +72,30 @@ describe("Page", () => {
 
     const input = screen.getByPlaceholderText("Password");
     expect(input).toBeInTheDocument();
+  });
+
+  describe("Behaviour", () => {
+    it("type something on email, pwd, name", async () => {
+      render(
+        <GlobalContextProvider>
+          <SignUp />
+        </GlobalContextProvider>
+      );
+
+      await userEvent.type(screen.getByPlaceholderText("Name"), "Hero");
+      await userEvent.type(screen.getByPlaceholderText("Email"), "a@g.com");
+      await userEvent.type(screen.getByPlaceholderText("Password"), "some1");
+    });
+
+    it("should click on the sign up button", async () => {
+      render(
+        <GlobalContextProvider>
+          <SignUp />
+        </GlobalContextProvider>
+      );
+
+      const button = screen.getByRole("button", { name: "Sign Up" });
+      await userEvent.click(button);
+    });
   });
 });

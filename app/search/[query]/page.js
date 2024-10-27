@@ -1,15 +1,14 @@
 "use client";
 import MediaCard from "@/components/cards/MediaCard";
+import SearchInput from "@/components/forms/SearchInput";
 import MovieCardSkeleton from "@/components/skeletons/MovieCardSkeleton";
 import PageTitle from "@/components/text/PageTitle";
-import { GlobalContext } from "@/services/globalContext";
-import Link from "next/link";
-import { useContext, useEffect, useState } from "react";
-import data from "@/utils/sampleContent/movieSearchDeadpool.json";
-import { useRouter } from "next/navigation";
-import SearchInput from "@/components/forms/SearchInput";
 import { Button } from "@/components/ui/button";
+import { GlobalContext } from "@/services/globalContext";
 import { siteTitle } from "@/utils/content/site";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useContext, useEffect, useState } from "react";
 
 const SearchQueryResult = ({ params }) => {
   const [data, setData] = useState([]);

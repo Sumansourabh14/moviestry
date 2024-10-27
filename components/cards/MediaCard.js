@@ -9,7 +9,6 @@ const MediaCard = ({ posterPath, title, releaseDate }) => {
           src={
             process.env.NEXT_PUBLIC_TMDB_IMAGE_BASE_URL + `/w500/${posterPath}`
           }
-          // src={`${process.env.NEXT_PUBLIC_TMDB_IMAGE_BASE_URL}/w500/${posterPath}`}
           alt={title}
           height={300}
           width={200}

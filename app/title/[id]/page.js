@@ -167,6 +167,10 @@ const MovieDetails = ({ params }) => {
         <div
           style={{
             backgroundImage: `url(${process.env.NEXT_PUBLIC_TMDB_IMAGE_BASE_URL}/original/${data.backdrop_path})`,
+            backgroundImage:
+              `url(` +
+              process.env.NEXT_PUBLIC_TMDB_IMAGE_BASE_URL +
+              `/original/${data.backdrop_path})`,
             backgroundPosition: "center",
             backgroundSize: "cover",
             backgroundRepeat: "no-repeat",
@@ -177,7 +181,10 @@ const MovieDetails = ({ params }) => {
           <section className="flex gap-8 ">
             <section className="relative w-full sm:w-64 sm:h-96 h-auto">
               <Image
-                src={`${process.env.NEXT_PUBLIC_TMDB_IMAGE_BASE_URL}/w500/${data.poster_path}`}
+                src={
+                  process.env.NEXT_PUBLIC_TMDB_IMAGE_BASE_URL +
+                  `/w500/${data.poster_path}`
+                }
                 alt={data.original_title}
                 fill
                 className="object-cover rounded-md"

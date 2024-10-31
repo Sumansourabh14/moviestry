@@ -9,12 +9,14 @@ const SignUpForm = ({
   handleEmailChange,
   password,
   handlePasswordChange,
+  loading,
 }) => {
   return (
     <FormTemplate
       handleSubmit={handleSubmit}
       buttonTitle="Sign Up"
       isDisabled={!(name.length > 0 && email.length > 0 && password.length > 0)}
+      loading={loading}
     >
       <section className="flex flex-col gap-4">
         <Input

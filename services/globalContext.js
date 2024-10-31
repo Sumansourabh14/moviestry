@@ -23,7 +23,7 @@ export const GlobalContext = createContext();
 
 export const GlobalContextProvider = ({ children }) => {
   const [error, setError] = useState({ error: false, status: "", message: "" });
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [user, setUser] = useState(null);
   const [cookies, setCookie, removeCookie] = useCookies();
   const [moviestryToken, setMoviestryToken] = useState(cookies.moviestry_token);
@@ -43,12 +43,20 @@ export const GlobalContextProvider = ({ children }) => {
       setLoading(false);
       return res;
     } catch (error) {
-      setError({
-        error: true,
-        status: error.response.status,
-        message: error.response.data.message,
-      });
       setLoading(false);
+      if (error.message === "Network Error") {
+        setError({
+          error: true,
+          status: 500,
+          message: error.message,
+        });
+      } else {
+        setError({
+          error: true,
+          status: error.response.status,
+          message: error.response.data.message,
+        });
+      }
     }
   };
 
@@ -66,12 +74,12 @@ export const GlobalContextProvider = ({ children }) => {
       setLoading(false);
       return res;
     } catch (error) {
+      setLoading(false);
       setError({
         error: true,
         status: error.response.status,
         message: error.response.data.message,
       });
-      setLoading(false);
     }
   };
 

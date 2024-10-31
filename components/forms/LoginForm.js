@@ -7,12 +7,14 @@ const LoginForm = ({
   handleEmailChange,
   password,
   handlePasswordChange,
+  loading,
 }) => {
   return (
     <FormTemplate
       handleSubmit={handleSubmit}
       buttonTitle="Login"
       isDisabled={!(email.length > 0 && password.length > 0)}
+      loading={loading}
     >
       <section className="flex flex-col gap-4">
         <Input

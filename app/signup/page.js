@@ -72,6 +72,7 @@ const SignUp = () => {
                 password={password}
                 handlePasswordChange={handlePasswordChange}
                 handleSubmit={handleSignUp}
+                loading={loading}
               />
             </section>
             <AlreadyAccount

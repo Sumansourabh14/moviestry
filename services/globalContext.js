@@ -1,4 +1,5 @@
 "use client";
+import reloadWebsite from "@/utils/functions/reloader";
 import { useRouter } from "next/navigation";
 import { createContext, useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
@@ -445,6 +446,12 @@ export const GlobalContextProvider = ({ children }) => {
       getUserWatched();
     }
   }, [user]);
+
+  useEffect(() => {
+    const timer = setInterval(reloadWebsite, 30000);
+    // clearing interval
+    return () => clearInterval(timer);
+  });
 
   return (
     <GlobalContext.Provider

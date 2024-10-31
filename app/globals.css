@@ -67,3 +67,8 @@
     @apply bg-background text-foreground;
   }
 }
+
+.theme-grayscale img {
+  filter: grayscale(1) contrast(1) brightness(1);
+  mix-blend-mode: darken;
+}

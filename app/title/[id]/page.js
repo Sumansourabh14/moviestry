@@ -192,9 +192,7 @@ const MovieDetails = ({ params }) => {
             </section>
             <section className="flex flex-col gap-4">
               {!!data?.tagline && (
-                <p className="max-w-[900px] text-gray-800 font-light">
-                  {data.tagline}
-                </p>
+                <p className="max-w-[900px] font-light">{data.tagline}</p>
               )}
               <h1 className="text-2xl sm:text-3xl md:text-5xl font-bold">
                 {data.original_title}
@@ -202,13 +200,11 @@ const MovieDetails = ({ params }) => {
               <section className="flex gap-2">
                 <section className="flex gap-2">
                   {!!data?.release_date && (
-                    <p className="max-w-[900px] text-gray-600">
-                      {data.release_date}
-                    </p>
+                    <p className="max-w-[900px] ">{data.release_date}</p>
                   )}
                   <Separator orientation="vertical" />
                   {!!data?.runtime && (
-                    <p className="max-w-[900px] text-gray-600">
+                    <p className="max-w-[900px]">
                       {convertMinutesToHours(data.runtime)}
                     </p>
                   )}
@@ -217,10 +213,7 @@ const MovieDetails = ({ params }) => {
                 {!!data?.spoken_languages && (
                   <section>
                     {data.spoken_languages.map((lang) => (
-                      <p
-                        key={lang.iso_639_1}
-                        className="max-w-[900px] text-gray-600"
-                      >
+                      <p key={lang.iso_639_1} className="max-w-[900px]">
                         {lang.name}
                       </p>
                     ))}

@@ -2,6 +2,7 @@
 import MediaCard from "@/components/cards/MediaCard";
 import PageLayout from "@/components/screens/PageLayout";
 import MovieCardSkeleton from "@/components/skeletons/MovieCardSkeleton";
+import PageTitle from "@/components/text/PageTitle";
 import { GlobalContext } from "@/services/globalContext";
 import { siteTitle } from "@/utils/content/site";
 import Link from "next/link";
@@ -13,11 +14,11 @@ const Watched = () => {
   const { user, getUserWatched, loading } = useContext(GlobalContext);
   const router = useRouter();
 
-  // useEffect(() => {
-  //   if (!user) {
-  //     router.push("/login");
-  //   }
-  // }, [user]);
+  useEffect(() => {
+    if (!user) {
+      router.push("/login");
+    }
+  }, [user]);
 
   useEffect(() => {
     let mounted = true;
@@ -37,12 +38,14 @@ const Watched = () => {
     };
   }, [user]);
 
+  useEffect(() => {
+    document.title = `Already Watched | ${siteTitle}`;
+  }, []);
+
   return (
-    <PageLayout
-      title={`Already Watched | ${siteTitle}`}
-      pageTitle={"Already Watched"}
-    >
-      <section>
+    <section>
+      <PageTitle title="Already Watched" />
+      <section className="mt-4">
         {loading ? (
           <MovieCardSkeleton />
         ) : watched.length > 0 ? (
@@ -66,7 +69,7 @@ const Watched = () => {
           </section>
         )}
       </section>
-    </PageLayout>
+    </section>
   );
 };
 

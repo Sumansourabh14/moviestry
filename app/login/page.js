@@ -34,7 +34,7 @@ const Login = () => {
 
   useEffect(() => {
     if (!!user) {
-      router.push("/dashboard");
+      router.push("/user/dashboard");
     }
   }, [user]);
 

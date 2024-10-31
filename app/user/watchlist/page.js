@@ -2,6 +2,7 @@
 import MediaCard from "@/components/cards/MediaCard";
 import PageLayout from "@/components/screens/PageLayout";
 import MovieCardSkeleton from "@/components/skeletons/MovieCardSkeleton";
+import PageTitle from "@/components/text/PageTitle";
 import { GlobalContext } from "@/services/globalContext";
 import { siteTitle } from "@/utils/content/site";
 import Link from "next/link";
@@ -13,11 +14,11 @@ const Watchlist = () => {
   const { user, getUserWatchlist, loading } = useContext(GlobalContext);
   const router = useRouter();
 
-  // useEffect(() => {
-  //   if (!user) {
-  //     router.push("/login");
-  //   }
-  // }, [user]);
+  useEffect(() => {
+    if (!user) {
+      router.push("/login");
+    }
+  }, [user]);
 
   useEffect(() => {
     let mounted = true;
@@ -37,12 +38,14 @@ const Watchlist = () => {
     };
   }, [user]);
 
+  useEffect(() => {
+    document.title = `My Watchlist | ${siteTitle}`;
+  }, []);
+
   return (
-    <PageLayout
-      title={`My Watchlist | ${siteTitle}`}
-      pageTitle={"My Watchlist"}
-    >
-      <section>
+    <section>
+      <PageTitle title={"My Watchlist"} />
+      <section className="mt-4">
         {loading ? (
           <MovieCardSkeleton />
         ) : watchList.length > 0 ? (
@@ -64,7 +67,7 @@ const Watchlist = () => {
           </section>
         )}
       </section>
-    </PageLayout>
+    </section>
   );
 };
 

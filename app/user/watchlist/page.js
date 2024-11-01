@@ -4,6 +4,7 @@ import MediaCard from "@/components/cards/MediaCard";
 import MovieCardSkeleton from "@/components/skeletons/MovieCardSkeleton";
 import MediaTable from "@/components/tables/MediaTable";
 import PageTitle from "@/components/text/PageTitle";
+import { Button } from "@/components/ui/button";
 import { GlobalContext } from "@/services/globalContext";
 import { siteTitle } from "@/utils/content/site";
 import Link from "next/link";
@@ -80,8 +81,11 @@ const Watchlist = () => {
             </div>
           )
         ) : (
-          <section>
+          <section className="flex gap-4 flex-col">
             <p>Oops! There is nothing in your watchlist</p>
+            <Button asChild>
+              <Link href={`/movies`}>Add to watchlist now!</Link>
+            </Button>
           </section>
         )}
       </section>

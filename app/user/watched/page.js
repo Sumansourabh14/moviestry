@@ -1,8 +1,8 @@
 "use client";
 import MediaCard from "@/components/cards/MediaCard";
-import PageLayout from "@/components/screens/PageLayout";
 import MovieCardSkeleton from "@/components/skeletons/MovieCardSkeleton";
 import PageTitle from "@/components/text/PageTitle";
+import { Button } from "@/components/ui/button";
 import { GlobalContext } from "@/services/globalContext";
 import { siteTitle } from "@/utils/content/site";
 import Link from "next/link";
@@ -62,10 +62,11 @@ const Watched = () => {
             ))}
           </section>
         ) : (
-          <section>
-            <p>
-              You have not watched any movie or TV show. Start watching now!
-            </p>
+          <section className="flex flex-col gap-4">
+            <p>You have not watched any movie or TV show.</p>
+            <Button asChild>
+              <Link href={`/movies`}>Add to your watched list!</Link>
+            </Button>
           </section>
         )}
       </section>

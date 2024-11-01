@@ -34,13 +34,16 @@ const Login = () => {
 
   useEffect(() => {
     if (!!user) {
-      router.push("/dashboard");
+      router.push("/user/dashboard");
     }
   }, [user]);
 
+  useEffect(() => {
+    document.title = `Login | ${siteTitle}`;
+  }, []);
+
   return (
     <>
-      <title>Login | {siteTitle}</title>
       <section className="flex flex-col items-center justify-between p-24">
         <section className="flex flex-col md:flex-row py-14">
           <section className="flex flex-col items-center gap-8">

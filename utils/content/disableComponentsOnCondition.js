@@ -1,1 +1,1 @@
-export const disableNavFooterForPaths = ["/user"];
+export const disableNavFooterForPaths = ["/user", "/login", "/signup"];

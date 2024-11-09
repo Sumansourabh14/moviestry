@@ -38,10 +38,10 @@ const MoviesRow = ({ title, endpoint }) => {
       <h2 className="text-3xl pb-4 font-bold">{title}</h2>
 
       <div>
-        <Carousel className="w-full">
+        <Carousel className="w-full max-w-5xl">
           <CarouselContent>
             {movies.map((movie) => (
-              <CarouselItem key={movie.id} className="max-w-[220px] relative">
+              <CarouselItem key={movie.id} className="basis-1/5">
                 <Link href={`/title/${movie.id}`}>
                   <MediaCard
                     key={movie.id}

@@ -2,7 +2,7 @@ import Link from "next/link";
 
 const AlreadyAccount = ({ text, destination, title }) => {
   return (
-    <p className="text-sm">
+    <p className="text-sm text-center">
       {text}{" "}
       <Link href={destination} className="text-blue-400">
         {title}

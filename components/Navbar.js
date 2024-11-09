@@ -29,80 +29,82 @@ const Navbar = () => {
               {siteTitle}.
             </Link>
           </div>
-          <div className="hidden sm:block sm:ml-6">
-            <div className="flex space-x-4">
-              <Link
-                href="/movies"
-                className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-              >
-                Movies
-              </Link>
-            </div>
-          </div>
-          <ThemeModeToggle />
-          <div className="hidden sm:block sm:ml-6">
-            {!!user ? (
-              <div className="flex space-x-4">
-                <DropdownMenu>
-                  <DropdownMenuTrigger className="bg-white text-black hover:bg-slate-700 hover:text-white px-6 py-2 rounded-md text-sm font-medium">
-                    {user.name}
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent className="w-[200px]">
-                    <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                    <DropdownMenuSeparator />
-                    <DropdownMenuItem>
-                      <Link
-                        href={`/user/dashboard`}
-                        className="flex gap-1 items-center"
-                      >
-                        <LayoutDashboard className="mr-2 h-4 w-4" />
-                        <span>Dashboard</span>
-                      </Link>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem>
-                      <Link
-                        href={`/user/watchlist`}
-                        className="flex gap-1 items-center"
-                      >
-                        <List className="mr-2 h-4 w-4" />
-                        <span>Watchlist</span>
-                      </Link>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem>
-                      <Link
-                        href={`/user/watched`}
-                        className="flex gap-1 items-center"
-                      >
-                        <CircleCheckBig className="mr-2 h-4 w-4" />
-                        <span>Already Watched</span>
-                      </Link>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem
-                      onClick={logout}
-                      className="text-red-500 hover:bg-black px-3 py-2 rounded-md text-sm font-medium cursor-pointer"
-                    >
-                      <LogOut className="mr-2 h-4 w-4" />
-                      <span>Logout</span>
-                    </DropdownMenuItem>
-                  </DropdownMenuContent>
-                </DropdownMenu>
-              </div>
-            ) : (
+          <div className="flex items-center justify-between gap-4">
+            <ThemeModeToggle />
+            <div className="hidden sm:block">
               <div className="flex space-x-4">
                 <Link
-                  href="/login"
+                  href="/movies"
                   className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
                 >
-                  Login
-                </Link>
-                <Link
-                  href="/signup"
-                  className="text-gray-800 bg-white hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                >
-                  Sign Up
+                  Movies
                 </Link>
               </div>
-            )}
+            </div>
+            <div className="hidden sm:block">
+              {!!user ? (
+                <div className="flex space-x-4">
+                  <DropdownMenu>
+                    <DropdownMenuTrigger className="bg-white text-black hover:bg-slate-700 hover:text-white px-6 py-2 rounded-md text-sm font-medium">
+                      {user.name}
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent className="w-[200px]">
+                      <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                      <DropdownMenuSeparator />
+                      <DropdownMenuItem>
+                        <Link
+                          href={`/user/dashboard`}
+                          className="flex gap-1 items-center"
+                        >
+                          <LayoutDashboard className="mr-2 h-4 w-4" />
+                          <span>Dashboard</span>
+                        </Link>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem>
+                        <Link
+                          href={`/user/watchlist`}
+                          className="flex gap-1 items-center"
+                        >
+                          <List className="mr-2 h-4 w-4" />
+                          <span>Watchlist</span>
+                        </Link>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem>
+                        <Link
+                          href={`/user/watched`}
+                          className="flex gap-1 items-center"
+                        >
+                          <CircleCheckBig className="mr-2 h-4 w-4" />
+                          <span>Already Watched</span>
+                        </Link>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem
+                        onClick={logout}
+                        className="text-red-500 hover:bg-black px-3 py-2 rounded-md text-sm font-medium cursor-pointer"
+                      >
+                        <LogOut className="mr-2 h-4 w-4" />
+                        <span>Logout</span>
+                      </DropdownMenuItem>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+                </div>
+              ) : (
+                <div className="flex space-x-4">
+                  <Link
+                    href="/login"
+                    className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                  >
+                    Login
+                  </Link>
+                  <Link
+                    href="/signup"
+                    className="text-gray-800 bg-white hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                  >
+                    Sign Up
+                  </Link>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </nav>

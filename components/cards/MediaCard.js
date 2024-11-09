@@ -3,16 +3,17 @@ import { Card, CardDescription, CardHeader, CardTitle } from "../ui/card";
 
 const MediaCard = ({ posterPath, title, releaseDate }) => {
   return (
-    <Card className="max-w-[200px] rounded-sm">
+    <Card className="rounded-sm">
       <CardHeader className="p-0 pb-2">
         <Image
           src={
             process.env.NEXT_PUBLIC_TMDB_IMAGE_BASE_URL + `/w500/${posterPath}`
           }
           alt={title}
-          height={300}
-          width={200}
-          className="rounded-sm"
+          width={0}
+          height={0}
+          sizes="100vw"
+          style={{ width: "100%", height: "auto" }} // optional
         />
         <CardTitle
           title={title}

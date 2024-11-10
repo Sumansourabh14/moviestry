@@ -30,7 +30,7 @@ export const GlobalContextProvider = ({ children }) => {
   const [moviestryToken, setMoviestryToken] = useState(cookies.moviestry_token);
   const [watchlistMedia, setWatchlistMedia] = useState([]);
   const [watchedMedia, setWatchedMedia] = useState([]);
-  const router = useRouter();
+  const [totalWatchedTime, setTotalWatchedTime] = useState(0);
 
   const signUp = async (name, email, password) => {
     try {
@@ -337,6 +337,7 @@ export const GlobalContextProvider = ({ children }) => {
         message: "",
       });
       const res = await totalWatchTimeApi(moviestryToken);
+      setTotalWatchedTime(res.data.totalHours);
       setLoading(false);
       return res;
     } catch (error) {
@@ -437,13 +438,10 @@ export const GlobalContextProvider = ({ children }) => {
   }, [cookies]);
 
   useEffect(() => {
-    // if (!user) {
-    //   router.push("/login");
-    // }
-
     if (!!user) {
       getUserWatchlist();
       getUserWatched();
+      getUserTotalWatchTime();
     }
   }, [user]);
 
@@ -473,6 +471,7 @@ export const GlobalContextProvider = ({ children }) => {
         removeFromWatched,
         getUserWatched,
         watchedMedia,
+        totalWatchedTime,
         getMovies,
       }}
     >

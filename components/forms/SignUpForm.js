@@ -1,5 +1,6 @@
 import { Input } from "../ui/input";
 import FormTemplate from "./FormTemplate";
+import PasswordInput from "./PasswordInput";
 
 const SignUpForm = ({
   handleSubmit,
@@ -33,12 +34,9 @@ const SignUpForm = ({
           onChange={handleEmailChange}
           required
         />
-        <Input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={handlePasswordChange}
-          required
+        <PasswordInput
+          password={password}
+          handlePasswordChange={handlePasswordChange}
         />
       </section>
     </FormTemplate>

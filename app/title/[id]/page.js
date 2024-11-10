@@ -211,7 +211,7 @@ const MovieDetails = ({ params }) => {
                 </section>
                 <Separator orientation="vertical" />
                 {!!data?.spoken_languages && (
-                  <section>
+                  <section className="flex gap-4 flex-wrap">
                     {data.spoken_languages.map((lang) => (
                       <p key={lang.iso_639_1} className="max-w-[900px]">
                         {lang.name}

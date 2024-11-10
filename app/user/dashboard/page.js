@@ -7,7 +7,8 @@ import { useRouter } from "next/navigation";
 import { useContext, useEffect } from "react";
 
 const Dashboard = () => {
-  const { user, watchlistMedia, watchedMedia } = useContext(GlobalContext);
+  const { user, watchlistMedia, watchedMedia, totalWatchedTime } =
+    useContext(GlobalContext);
   const router = useRouter();
 
   useEffect(() => {
@@ -36,6 +37,11 @@ const Dashboard = () => {
         <StatLinkCard
           title={"Already watched"}
           description={watchedMedia?.length}
+          destination={"/user/watched"}
+        />
+        <StatLinkCard
+          title={"Total Minutes Watched"}
+          description={totalWatchedTime}
           destination={"/user/watched"}
         />
       </section>

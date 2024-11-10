@@ -163,7 +163,7 @@ export const userWatchedApi = async (token) => {
 
 export const totalWatchTimeApi = async (token) => {
   const res = await axios.get(
-    `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/api/v1/user-stats/total-watch-time`,
+    `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/api/v1/media/total-watch-time`,
     {
       headers: {
         Authorization: `Bearer ${token}`,

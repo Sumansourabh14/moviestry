@@ -175,7 +175,7 @@ export const totalWatchTimeApi = async (token) => {
 
 export const longestMovieWatchedApi = async (token) => {
   const res = await axios.get(
-    `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/api/v1/user-stats/longest-watch-time`,
+    `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/api/v1/media/max-watch-time`,
     {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -187,7 +187,7 @@ export const longestMovieWatchedApi = async (token) => {
 
 export const shortestMovieWatchedApi = async (token) => {
   const res = await axios.get(
-    `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/api/v1/user-stats/shortest-watch-time`,
+    `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/api/v1/media/min-watch-time`,
     {
       headers: {
         Authorization: `Bearer ${token}`,

@@ -31,6 +31,8 @@ export const GlobalContextProvider = ({ children }) => {
   const [watchlistMedia, setWatchlistMedia] = useState([]);
   const [watchedMedia, setWatchedMedia] = useState([]);
   const [totalWatchedTime, setTotalWatchedTime] = useState(0);
+  const [maxWatchedTime, setMaxWatchedTime] = useState(0);
+  const [minWatchedTime, setMinWatchedTime] = useState(0);
 
   const signUp = async (name, email, password) => {
     try {
@@ -361,6 +363,7 @@ export const GlobalContextProvider = ({ children }) => {
         message: "",
       });
       const res = await longestMovieWatchedApi(moviestryToken);
+      setMaxWatchedTime(res.data.maxHours);
       setLoading(false);
       return res;
     } catch (error) {
@@ -384,6 +387,7 @@ export const GlobalContextProvider = ({ children }) => {
         message: "",
       });
       const res = await shortestMovieWatchedApi(moviestryToken);
+      setMinWatchedTime(res.data.minHours);
       setLoading(false);
       return res;
     } catch (error) {
@@ -442,6 +446,8 @@ export const GlobalContextProvider = ({ children }) => {
       getUserWatchlist();
       getUserWatched();
       getUserTotalWatchTime();
+      getUserLongestWatchTime();
+      getUserShortestWatchTime();
     }
   }, [user]);
 
@@ -472,6 +478,8 @@ export const GlobalContextProvider = ({ children }) => {
         getUserWatched,
         watchedMedia,
         totalWatchedTime,
+        maxWatchedTime,
+        minWatchedTime,
         getMovies,
       }}
     >

@@ -7,8 +7,14 @@ import { useRouter } from "next/navigation";
 import { useContext, useEffect } from "react";
 
 const Dashboard = () => {
-  const { user, watchlistMedia, watchedMedia, totalWatchedTime } =
-    useContext(GlobalContext);
+  const {
+    user,
+    watchlistMedia,
+    watchedMedia,
+    totalWatchedTime,
+    maxWatchedTime,
+    minWatchedTime,
+  } = useContext(GlobalContext);
   const router = useRouter();
 
   useEffect(() => {
@@ -28,7 +34,7 @@ const Dashboard = () => {
         <h2 className="mt-4">Hi, {user?.name}! Welcome to your dashboard.</h2>
       )}
 
-      <section className="my-8 flex flex-col sm:flex-row gap-4">
+      <section className="my-8 flex flex-col sm:flex-row flex-wrap gap-4">
         <StatLinkCard
           title={"Watchlist"}
           description={watchlistMedia?.length}
@@ -42,6 +48,16 @@ const Dashboard = () => {
         <StatLinkCard
           title={"Total Minutes Watched"}
           description={totalWatchedTime}
+          destination={"/user/watched"}
+        />
+        <StatLinkCard
+          title={"Maximum Minutes"}
+          description={maxWatchedTime}
+          destination={"/user/watched"}
+        />
+        <StatLinkCard
+          title={"Minimum Minutes"}
+          description={minWatchedTime}
           destination={"/user/watched"}
         />
       </section>

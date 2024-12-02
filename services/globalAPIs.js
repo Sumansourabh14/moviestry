@@ -98,6 +98,13 @@ export const userWatchlistApi = async (token) => {
   return res;
 };
 
+export const usersApi = async () => {
+  const res = await axios.get(
+    `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/api/v1/user/users`
+  );
+  return res;
+};
+
 export const addToWatchedApi = async (
   id,
   adult,
@@ -157,6 +164,13 @@ export const userWatchedApi = async (token) => {
         Authorization: `Bearer ${token}`,
       },
     }
+  );
+  return res;
+};
+
+export const publicUserWatchedApi = async (userId) => {
+  const res = await axios.get(
+    `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/api/v1/media/${userId}/watched`
   );
   return res;
 };

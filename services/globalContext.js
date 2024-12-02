@@ -15,6 +15,7 @@ import {
   shortestMovieWatchedApi,
   signUpApi,
   totalWatchTimeApi,
+  usersApi,
   userWatchedApi,
   userWatchlistApi,
 } from "./globalAPIs";
@@ -306,6 +307,28 @@ export const GlobalContextProvider = ({ children }) => {
     }
   };
 
+  const getUsers = async () => {
+    try {
+      setLoading(true);
+      setError({
+        error: false,
+        status: "",
+        message: "",
+      });
+      const res = await usersApi();
+      setLoading(false);
+      return res;
+    } catch (error) {
+      setError({
+        error: true,
+        status: error.response.status,
+        message: error.response.data.message,
+      });
+      setLoading(false);
+      return;
+    }
+  };
+
   const getUserWatched = async () => {
     try {
       setLoading(true);
@@ -481,6 +504,7 @@ export const GlobalContextProvider = ({ children }) => {
         maxWatchedTime,
         minWatchedTime,
         getMovies,
+        getUsers,
       }}
     >
       {children}

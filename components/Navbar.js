@@ -42,6 +42,16 @@ const Navbar = () => {
               </div>
             </div>
             <div className="hidden sm:block">
+              <div className="flex space-x-4">
+                <Link
+                  href="/all-users"
+                  className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                >
+                  Users
+                </Link>
+              </div>
+            </div>
+            <div className="hidden sm:block">
               {!!user ? (
                 <div className="flex space-x-4">
                   <DropdownMenu>

@@ -10,6 +10,7 @@ import {
   loginApi,
   longestMovieWatchedApi,
   movieDetailsApi,
+  publicUserWatchedApi,
   removeFromWatchedApi,
   removeFromWatchlistApi,
   shortestMovieWatchedApi,
@@ -353,6 +354,28 @@ export const GlobalContextProvider = ({ children }) => {
     }
   };
 
+  const getPublicUserWatchedList = async (userId) => {
+    try {
+      setLoading(true);
+      setError({
+        error: false,
+        status: "",
+        message: "",
+      });
+      const res = await publicUserWatchedApi(userId);
+      setLoading(false);
+      return res;
+    } catch (error) {
+      setError({
+        error: true,
+        status: error.response.status,
+        message: error.response.data.message,
+      });
+      setLoading(false);
+      return;
+    }
+  };
+
   const getUserTotalWatchTime = async () => {
     try {
       setLoading(true);
@@ -505,6 +528,7 @@ export const GlobalContextProvider = ({ children }) => {
         minWatchedTime,
         getMovies,
         getUsers,
+        getPublicUserWatchedList,
       }}
     >
       {children}

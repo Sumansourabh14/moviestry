@@ -3,6 +3,7 @@ import PageTitle from "@/components/text/PageTitle";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { GlobalContext } from "@/services/globalContext";
 import { siteTitle } from "@/utils/content/site";
+import Link from "next/link";
 import { useContext, useEffect, useState } from "react";
 
 const AllUsers = () => {
@@ -27,10 +28,13 @@ const AllUsers = () => {
     };
   }, []);
 
+  useEffect(() => {
+    document.title = `All Users | ${siteTitle}`;
+  }, []);
+
   return (
     <>
-      <title>{`Users | ${siteTitle}`}</title>
-      <section className="flex flex-col mt-16 p-12 min-h-[90vh]">
+      <section className="flex flex-col mt-16 p-12 min-h-[90vh] max-w-[1400px] mx-auto">
         <PageTitle title="All Users" />
         <section className="my-8">
           {loading ? (
@@ -38,19 +42,22 @@ const AllUsers = () => {
           ) : users.length > 0 ? (
             <section className="flex gap-12">
               {users.map((user) => (
-                <div
+                <Link
+                  href={`/all-users/${user._id}/watched`}
                   key={user._id}
                   className="flex flex-col items-center gap-2 p-4"
                 >
                   <Avatar>
-                    <AvatarFallback>CN</AvatarFallback>
+                    <AvatarFallback>
+                      {user.name.slice(0, 1).toUpperCase()}
+                    </AvatarFallback>
                   </Avatar>
                   <h3>{user.name}</h3>
-                </div>
+                </Link>
               ))}
             </section>
           ) : (
-            <p>None</p>
+            <p>There are no users registered with Moviestry</p>
           )}
         </section>
       </section>

@@ -168,6 +168,13 @@ export const userWatchedApi = async (token) => {
   return res;
 };
 
+export const publicUserWatchedApi = async (userId) => {
+  const res = await axios.get(
+    `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/api/v1/media/${userId}/watched`
+  );
+  return res;
+};
+
 export const totalWatchTimeApi = async (token) => {
   const res = await axios.get(
     `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/api/v1/media/total-watch-time`,
